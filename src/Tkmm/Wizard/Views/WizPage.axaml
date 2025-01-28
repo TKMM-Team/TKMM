@@ -1,0 +1,51 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Tkmm.Wizard.ViewModels"
+             xmlns:wiz="using:Tkmm.Wizard"
+             x:DataType="vm:WizPageViewModel"
+             x:Class="Tkmm.Wizard.Views.WizPage">
+    <Grid RowDefinitions="*,Auto" Margin="60">
+        <StackPanel VerticalAlignment="Center"
+                    Spacing="20"
+                    HorizontalAlignment="Center">
+            <TextBlock TextWrapping="WrapWithOverflow"
+                       FontFamily="{StaticResource HyliaGlyph}"
+                       FontSize="46"
+                       Text="{Binding Title}" />
+            <ContentPresenter Content="{Binding}" TextWrapping="WrapWithOverflow">
+                <ContentPresenter.DataTemplates>
+                    <DataTemplate DataType="{x:Type vm:WizPageViewModel}">
+                        <ContentControl Content="{Binding PageContent}" />
+                    </DataTemplate>
+                </ContentPresenter.DataTemplates>
+            </ContentPresenter>
+            <HyperlinkButton NavigateUri="https://discord.gg/BbVXenRFVc" Content="Join Discord" />
+        </StackPanel>
+        
+        <Grid ColumnDefinitions="Auto,*" Grid.Row="1" >
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Back"
+                        IsVisible="{Binding Id}"
+                        Command="{Binding MoveBackCommand}"/>
+            </StackPanel>
+            
+            <ItemsControl HorizontalAlignment="Right" Grid.Column="1" ItemsSource="{Binding Actions}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="15" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type wiz:WizAction}">
+                        <Button Command="{Binding MoveNextCommand}"
+                                CommandParameter="{Binding $parent[UserControl].DataContext}"
+                                Content="{Binding Content}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Grid>
+</UserControl>

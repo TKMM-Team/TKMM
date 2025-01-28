@@ -1,0 +1,121 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:ext="using:Tkmm.Markup"
+             xmlns:vm="using:Tkmm.Wizard.ViewModels"
+             xmlns:core="using:Tkmm.Core"
+             x:DataType="vm:WizDumpConfigPageViewModel"
+             x:Class="Tkmm.Wizard.Views.WizDumpConfigPage">
+    <TabControl Height="270">
+        <TabControl.Styles>
+            <Style Selector="TabItem">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Padding" Value="10,6" />
+            </Style>
+        </TabControl.Styles>
+        <TabItem Header="XCI/NSP">
+            <StackPanel Spacing="15" Margin="0,10,0,0">
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
+                    <TextBlock Text="{ext:Locale WizDumpPage_KeysFolderField_Description}"
+                               Margin="5,0,0,5" />
+                    <TextBox Grid.Row="1"
+                             Name="KeysFolderPathField"
+                             Tag="folder"
+                             Text="{Binding KeysFolderPath, Source={x:Static core:TkConfig.Shared}}"
+                             TextWrapping="NoWrap"
+                             Width="450" />
+                    <Button Grid.Column="1" Grid.Row="1"
+                            Margin="15,0,0,0"
+                            Content="{ext:Locale WizDumpPage_Action_Browse}"
+                            Command="{Binding BrowseCommand}"
+                            CommandParameter="{Binding #KeysFolderPathField}" />
+                </Grid>
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
+                    <TextBlock Text="{ext:Locale WizDumpPage_BaseGameFileField_Description}"
+                               Margin="5,0,0,5" />
+                    <TextBox Grid.Row="1"
+                             Name="BaseGameFilePathField"
+                             Tag="xci,nsp"
+                             Text="{Binding BaseGameFilePath, Source={x:Static core:TkConfig.Shared}}"
+                             TextWrapping="NoWrap"
+                             Width="450" />
+                    <Button Grid.Column="1" Grid.Row="1"
+                            Margin="15,0,0,0"
+                            Content="{ext:Locale WizDumpPage_Action_Browse}"
+                            Command="{Binding BrowseCommand}"
+                            CommandParameter="{Binding #BaseGameFilePathField}" />
+                </Grid>
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
+                    <TextBlock Text="{ext:Locale WizDumpPage_GameUpdateFileField_Description}"
+                               Margin="5,0,0,5" />
+                    <TextBox Grid.Row="1"
+                             Name="GameUpdateFilePathField"
+                             Tag="nsp"
+                             Text="{Binding GameUpdateFilePath, Source={x:Static core:TkConfig.Shared}}"
+                             TextWrapping="NoWrap"
+                             Width="450" />
+                    <Button Grid.Column="1" Grid.Row="1"
+                            Margin="15,0,0,0"
+                            Content="{ext:Locale WizDumpPage_Action_Browse}"
+                            Command="{Binding BrowseCommand}"
+                            CommandParameter="{Binding #GameUpdateFilePathField}" />
+                </Grid>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="RomFS Folder">
+            <StackPanel Spacing="15" Margin="0,10,0,0">
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
+                    <TextBlock Text="{ext:Locale WizDumpPage_GameDumpFolderField_Description}"
+                               Margin="5,0,0,5" />
+                    <TextBox Grid.Row="1"
+                             Name="GameDumpFolderPathField"
+                             Tag="folder"
+                             Text="{Binding GameDumpFolderPath, Source={x:Static core:TkConfig.Shared}}"
+                             TextWrapping="NoWrap"
+                             Width="450" />
+                    <Button Grid.Column="1" Grid.Row="1"
+                            Margin="15,0,0,0"
+                            Content="{ext:Locale WizDumpPage_Action_Browse}"
+                            Command="{Binding BrowseCommand}"
+                            CommandParameter="{Binding #GameDumpFolderPathField}" />
+                </Grid>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="SD Card">
+            <StackPanel Spacing="15" Margin="0,10,0,0">
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
+                    <TextBlock Text="{ext:Locale WizDumpPage_SdCardFolderField_Description}"
+                               Margin="5,0,0,5" />
+                    <TextBox Grid.Row="1"
+                             Name="SdCardFolderField"
+                             Tag="folder"
+                             Text="{Binding SdCardRootPath, Source={x:Static core:TkConfig.Shared}}"
+                             TextWrapping="NoWrap"
+                             Width="450" />
+                    <Button Grid.Column="1" Grid.Row="1"
+                            Margin="15,0,0,0"
+                            Content="{ext:Locale WizDumpPage_Action_Browse}"
+                            Command="{Binding BrowseCommand}"
+                            CommandParameter="{Binding #SdCardFolderField}" />
+                </Grid>
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
+                    <TextBlock Text="{ext:Locale WizDumpPage_OptionalGameUpdateFileField_Description}"
+                               Margin="5,0,0,5" />
+                    <TextBox Grid.Row="1"
+                             Name="OptionalGameUpdateFilePathField"
+                             Tag="nsp"
+                             Text="{Binding GameUpdateFilePath, Source={x:Static core:TkConfig.Shared}}"
+                             TextWrapping="NoWrap"
+                             Width="450" />
+                    <Button Grid.Column="1" Grid.Row="1"
+                            Margin="15,0,0,0"
+                            Content="{ext:Locale WizDumpPage_Action_Browse}"
+                            Command="{Binding BrowseCommand}"
+                            CommandParameter="{Binding #OptionalGameUpdateFilePathField}" />
+                </Grid>
+            </StackPanel>
+        </TabItem>
+    </TabControl>
+</UserControl>

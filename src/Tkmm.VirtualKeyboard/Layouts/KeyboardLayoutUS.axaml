@@ -1,0 +1,111 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vk="using:Tkmm.VirtualKeyboard"
+        xmlns:layouts="using:Tkmm.VirtualKeyboard.Layouts"
+        xmlns:fa="https://github.com/projektanker/icons.avalonia">
+    <Style Selector="layouts|KeyboardLayoutUS">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border>
+                    <StackPanel Spacing="6">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="6">
+                            <vk:VirtualKey Key="1" ShiftKey="#" />
+                            <vk:VirtualKey Key="2" ShiftKey="[" />
+                            <vk:VirtualKey Key="3" ShiftKey="]" />
+                            <vk:VirtualKey Key="4" ShiftKey="$" />
+                            <vk:VirtualKey Key="5" ShiftKey="%" />
+                            <vk:VirtualKey Key="6" ShiftKey="^" />
+                            <vk:VirtualKey Key="7" ShiftKey="&amp;" />
+                            <vk:VirtualKey Key="8" ShiftKey="*" />
+                            <vk:VirtualKey Key="9" ShiftKey="(" />
+                            <vk:VirtualKey Key="0" ShiftKey=")" />
+                            <vk:VirtualKey Key="-" ShiftKey="_" />
+                            <vk:VirtualKey
+                                SimulatedKey="Back"
+                                Width="152">
+                                <fa:Icon Value="fa-regular fa-delete-left" />
+                            </vk:VirtualKey>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="6">
+                            <vk:VirtualKey Content="TAB" SimulatedKey="Tab" Width="118" />
+                            <vk:VirtualKey Key="q" ShiftKey="Q" />
+                            <vk:VirtualKey Key="w" ShiftKey="W" />
+                            <vk:VirtualKey Key="e" ShiftKey="E" />
+                            <vk:VirtualKey Key="r" ShiftKey="R" />
+                            <vk:VirtualKey Key="t" ShiftKey="T" />
+                            <vk:VirtualKey Key="y" ShiftKey="Y" />
+                            <vk:VirtualKey Key="u" ShiftKey="U" />
+                            <vk:VirtualKey Key="i" ShiftKey="I" />
+                            <vk:VirtualKey Key="o" ShiftKey="O" />
+                            <vk:VirtualKey Key="p" ShiftKey="P" />
+                            <vk:VirtualKey Key="/" ShiftKey="@" Width="118" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="6">
+                            <vk:VirtualKey Key="a" ShiftKey="A" />
+                            <vk:VirtualKey Key="s" ShiftKey="S" />
+                            <vk:VirtualKey Key="d" ShiftKey="D" />
+                            <vk:VirtualKey Key="f" ShiftKey="F" />
+                            <vk:VirtualKey Key="g" ShiftKey="G" />
+                            <vk:VirtualKey Key="h" ShiftKey="H" />
+                            <vk:VirtualKey Key="j" ShiftKey="J" />
+                            <vk:VirtualKey Key="k" ShiftKey="K" />
+                            <vk:VirtualKey Key="l" ShiftKey="L" />
+                            <vk:VirtualKey Key=":" ShiftKey=';' />
+                            <vk:VirtualKey Key="'" ShiftKey='"' />
+                            <vk:VirtualKey Content="ENTER" SimulatedKey="Enter" Width="152"
+                                           IsEnabled="{TemplateBinding AcceptsReturn}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="6">
+                            <vk:VirtualShiftKey
+                                IsChecked="{Binding IsShiftEnabled, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                Width="118">
+                                <vk:VirtualShiftKey.OffContent>
+                                    <fa:Icon Value="fa-regular fa-square-up" />
+                                </vk:VirtualShiftKey.OffContent>
+                                <vk:VirtualShiftKey.OnContent>
+                                    <fa:Icon Value="fa-solid fa-square-up" />
+                                </vk:VirtualShiftKey.OnContent>
+                            </vk:VirtualShiftKey>
+                            <vk:VirtualKey Key="z" ShiftKey="Z" />
+                            <vk:VirtualKey Key="x" ShiftKey="X" />
+                            <vk:VirtualKey Key="c" ShiftKey="C" />
+                            <vk:VirtualKey Key="v" ShiftKey="V" />
+                            <vk:VirtualKey Key="b" ShiftKey="B" />
+                            <vk:VirtualKey Key="n" ShiftKey="N" />
+                            <vk:VirtualKey Key="m" ShiftKey="M" />
+                            <vk:VirtualKey Key="," ShiftKey="&lt;" />
+                            <vk:VirtualKey Key="." ShiftKey="&gt;" />
+                            <vk:VirtualKey Key="/" ShiftKey="?" />
+                            <vk:VirtualShiftKey
+                                IsChecked="{Binding IsShiftEnabled, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                Width="118">
+                                <vk:VirtualShiftKey.OffContent>
+                                    <fa:Icon Value="fa-regular fa-square-up" />
+                                </vk:VirtualShiftKey.OffContent>
+                                <vk:VirtualShiftKey.OnContent>
+                                    <fa:Icon Value="fa-solid fa-square-up" />
+                                </vk:VirtualShiftKey.OnContent>
+                            </vk:VirtualShiftKey>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <vk:VirtualKey Key="=" ShiftKey="+" />
+                            <vk:VirtualKey SimulatedKey="Home">
+                                <fa:Icon Value="fa-regular fa-arrow-left-long-to-line" />
+                            </vk:VirtualKey>
+                            <vk:VirtualKey SimulatedKey="End">
+                                <fa:Icon Value="fa-regular fa-arrow-right-long-to-line" />
+                            </vk:VirtualKey>
+                            <vk:VirtualKey Content="SPACE" Key="&#xA0;" Width="692" />
+                            <vk:VirtualKey SimulatedKey="Left">
+                                <fa:Icon Value="fa-regular fa-arrow-left" />
+                            </vk:VirtualKey>
+                            <vk:VirtualKey SimulatedKey="Right">
+                                <fa:Icon Value="fa-regular fa-arrow-right" />
+                            </vk:VirtualKey>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

@@ -1,0 +1,413 @@
+{
+    "_aMetadata": {
+        "_bIsComplete": true
+    },
+    "_aRecords": [
+        {
+            "_idRow": 453422,
+            "_sModelName": "Mod",
+            "_sSingularTitle": "Mod",
+            "_sIconClasses": "SubmissionType Mod",
+            "_sName": "Dark Army Resurrection",
+            "_sProfileUrl": "https:\/\/gamebanana.com\/mods\/453422",
+            "_tsDateAdded": 1688200892,
+            "_tsDateModified": 1711150568,
+            "_bHasFiles": true,
+            "_aTags": [],
+            "_aPreviewMedia": {
+                "_aImages": [
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Dark Army Resurrection",
+                        "_sFile": "649fe48b65e10.jpg",
+                        "_sFile220": "220-90_649fe48b65e10.jpg",
+                        "_hFile220": 142,
+                        "_wFile220": 220,
+                        "_sFile530": "530-90_649fe48b65e10.jpg",
+                        "_hFile530": 342,
+                        "_wFile530": 530,
+                        "_sFile100": "100-90_649fe48b65e10.jpg",
+                        "_hFile100": 64,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Blood",
+                        "_sFile": "649fe45f8b37e.jpg",
+                        "_sFile100": "100-90_649fe45f8b37e.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Resurrection",
+                        "_sFile": "649fe45f52208.jpg",
+                        "_sFile100": "100-90_649fe45f52208.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Locked Chests",
+                        "_sFile": "649fe46073fe8.jpg",
+                        "_sFile100": "100-90_649fe46073fe8.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Chest Keys",
+                        "_sFile": "649fe45f967c2.jpg",
+                        "_sFile100": "100-90_649fe45f967c2.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Chest Keys",
+                        "_sFile": "649fe459a9b16.jpg",
+                        "_sFile100": "100-90_649fe459a9b16.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Locked Chests",
+                        "_sFile": "649fe46050e68.jpg",
+                        "_sFile100": "100-90_649fe46050e68.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Warping System",
+                        "_sFile": "649fe583f0fa5.jpg",
+                        "_sFile100": "100-90_649fe583f0fa5.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Warping System",
+                        "_sFile": "649fe5847b52a.jpg",
+                        "_sFile100": "100-90_649fe5847b52a.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Warping System",
+                        "_sFile": "649fe5853ca46.jpg",
+                        "_sFile100": "100-90_649fe5853ca46.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Punitive Death",
+                        "_sFile": "649fe522db77e.jpg",
+                        "_sFile100": "100-90_649fe522db77e.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Punitive Death",
+                        "_sFile": "64b5a9d2532b7.jpg",
+                        "_sFile100": "100-90_64b5a9d2532b7.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Punitive Death",
+                        "_sFile": "649fe45f42bad.jpg",
+                        "_sFile100": "100-90_649fe45f42bad.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Punitive Moon",
+                        "_sFile": "649fe4593cf74.jpg",
+                        "_sFile100": "100-90_649fe4593cf74.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sCaption": "Punitive Moon",
+                        "_sFile": "649fe4541d12e.jpg",
+                        "_sFile100": "100-90_649fe4541d12e.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "6548150b38343.jpg",
+                        "_sFile100": "100-90_6548150b38343.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "6548150c76bab.jpg",
+                        "_sFile100": "100-90_6548150c76bab.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "6548150cb3708.jpg",
+                        "_sFile100": "100-90_6548150cb3708.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "6548150d33933.jpg",
+                        "_sFile100": "100-90_6548150d33933.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    }
+                ]
+            },
+            "_aSubmitter": {
+                "_idRow": 1783085,
+                "_sName": "miirkuz",
+                "_bIsOnline": false,
+                "_bHasRipe": true,
+                "_sProfileUrl": "https:\/\/gamebanana.com\/members\/1783085",
+                "_sAvatarUrl": "https:\/\/images.gamebanana.com\/img\/av\/63795b92bc7f7.jpg"
+            },
+            "_aRootCategory": {
+                "_sName": "Other\/Misc",
+                "_sProfileUrl": "https:\/\/gamebanana.com\/mods\/cats\/5138",
+                "_sIconUrl": "https:\/\/images.gamebanana.com\/img\/ico\/ModCategory\/6468f17caa659.png"
+            },
+            "_sVersion": "1.6",
+            "_tsDateUpdated": 1711150186,
+            "_bIsObsolete": false,
+            "_sInitialVisibility": "show",
+            "_bHasContentRatings": false,
+            "_nLikeCount": 66,
+            "_nPostCount": 96,
+            "_bWasFeatured": true,
+            "_nViewCount": 68893,
+            "_bIsOwnedByAccessor": false
+        },
+        {
+            "_idRow": 510153,
+            "_sModelName": "Mod",
+            "_sSingularTitle": "Mod",
+            "_sIconClasses": "SubmissionType Mod",
+            "_sName": "Dark Zonai Tech",
+            "_sProfileUrl": "https:\/\/gamebanana.com\/mods\/510153",
+            "_tsDateAdded": 1714360752,
+            "_tsDateModified": 1714507369,
+            "_bHasFiles": true,
+            "_aTags": [],
+            "_aPreviewMedia": {
+                "_aImages": [
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "662f0e7242aea.jpg",
+                        "_sFile220": "220-90_662f0e7242aea.jpg",
+                        "_hFile220": 124,
+                        "_wFile220": 220,
+                        "_sFile530": "530-90_662f0e7242aea.jpg",
+                        "_hFile530": 298,
+                        "_wFile530": 530,
+                        "_sFile100": "100-90_662f0e7242aea.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100,
+                        "_sFile800": "800-90_662f0e7242aea.jpg",
+                        "_hFile800": 450,
+                        "_wFile800": 800
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "662f0e7269fc5.jpg",
+                        "_sFile100": "100-90_662f0e7269fc5.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "662f0e722a32c.jpg",
+                        "_sFile100": "100-90_662f0e722a32c.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "662f1047cd1b3.jpg",
+                        "_sFile100": "100-90_662f1047cd1b3.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "662f0f656c009.jpg",
+                        "_sFile100": "100-90_662f0f656c009.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "662f108897d72.jpg",
+                        "_sFile100": "100-90_662f108897d72.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "662f0f7187071.jpg",
+                        "_sFile100": "100-90_662f0f7187071.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "662f1117f01f0.jpg",
+                        "_sFile100": "100-90_662f1117f01f0.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "662f11568a74a.jpg",
+                        "_sFile100": "100-90_662f11568a74a.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "662f115705978.jpg",
+                        "_sFile100": "100-90_662f115705978.jpg",
+                        "_hFile100": 56,
+                        "_wFile100": 100
+                    }
+                ]
+            },
+            "_aSubmitter": {
+                "_idRow": 1782454,
+                "_sName": "Aster",
+                "_bIsOnline": true,
+                "_bHasRipe": false,
+                "_sProfileUrl": "https:\/\/gamebanana.com\/members\/1782454",
+                "_sAvatarUrl": "https:\/\/images.gamebanana.com\/img\/av\/657e56cfe30e1.png",
+                "_sUpicUrl": "https:\/\/images.gamebanana.com\/img\/upic\/655f91f00a522.png"
+            },
+            "_aRootCategory": {
+                "_sName": "Visual Overhaul",
+                "_sProfileUrl": "https:\/\/gamebanana.com\/mods\/cats\/22760",
+                "_sIconUrl": "https:\/\/images.gamebanana.com\/img\/ico\/ModCategory\/646d39a892697.png"
+            },
+            "_sVersion": "1.0.0",
+            "_bIsObsolete": false,
+            "_sInitialVisibility": "show",
+            "_bHasContentRatings": false,
+            "_nLikeCount": 28,
+            "_nPostCount": 12,
+            "_bWasFeatured": true,
+            "_nViewCount": 1320,
+            "_bIsOwnedByAccessor": false
+        },
+        {
+            "_idRow": 515897,
+            "_sModelName": "Mod",
+            "_sSingularTitle": "Mod",
+            "_sIconClasses": "SubmissionType Mod",
+            "_sName": "RSDB HeapSize Increase",
+            "_sProfileUrl": "https:\/\/gamebanana.com\/mods\/515897",
+            "_tsDateAdded": 1716695603,
+            "_tsDateModified": 1716695603,
+            "_bHasFiles": true,
+            "_aTags": [],
+            "_aPreviewMedia": {
+                "_aImages": [
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "6652b1c4665e1.jpg",
+                        "_sFile220": "220-90_6652b1c4665e1.jpg",
+                        "_hFile220": 141,
+                        "_wFile220": 220,
+                        "_sFile530": "530-90_6652b1c4665e1.jpg",
+                        "_hFile530": 340,
+                        "_wFile530": 530,
+                        "_sFile100": "100-90_6652b1c4665e1.jpg",
+                        "_hFile100": 64,
+                        "_wFile100": 100,
+                        "_sFile800": "6652b1c4665e1.jpg",
+                        "_hFile800": 495,
+                        "_wFile800": 800
+                    },
+                    {
+                        "_sType": "screenshot",
+                        "_sBaseUrl": "https:\/\/images.gamebanana.com\/img\/ss\/mods",
+                        "_sFile": "6652b1c951c09.jpg",
+                        "_sFile100": "100-90_6652b1c951c09.jpg",
+                        "_hFile100": 64,
+                        "_wFile100": 100
+                    }
+                ]
+            },
+            "_aSubmitter": {
+                "_idRow": 1630162,
+                "_sName": "Lord Bubbles",
+                "_bIsOnline": false,
+                "_bHasRipe": true,
+                "_sProfileUrl": "https:\/\/gamebanana.com\/members\/1630162",
+                "_sAvatarUrl": "https:\/\/images.gamebanana.com\/img\/av\/665a4c9780ae2.png",
+                "_sHdAvatarUrl": "https:\/\/images.gamebanana.com\/img\/av\/66663d2a99e30.png",
+                "_sUpicUrl": "https:\/\/images.gamebanana.com\/img\/upic\/665a07eb3c95b.png",
+                "_sSubjectShaperCssCode": "font-family:'Lucida Console','Monaco','monospace';color:#C56CAC;text-shadow:1px 1px #7EE4FF;"
+            },
+            "_aRootCategory": {
+                "_sName": "Other\/Misc",
+                "_sProfileUrl": "https:\/\/gamebanana.com\/mods\/cats\/5138",
+                "_sIconUrl": "https:\/\/images.gamebanana.com\/img\/ico\/ModCategory\/6468f17caa659.png"
+            },
+            "_sVersion": "",
+            "_bIsObsolete": false,
+            "_sInitialVisibility": "show",
+            "_bHasContentRatings": false,
+            "_nLikeCount": 10,
+            "_nPostCount": 4,
+            "_bWasFeatured": false,
+            "_nViewCount": 1367,
+            "_bIsOwnedByAccessor": true
+        }
+    ]
+}

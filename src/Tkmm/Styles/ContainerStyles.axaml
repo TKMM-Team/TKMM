@@ -1,8 +1,8 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:behaviors="using:Tkmm.Behaviors"
         xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
-        xmlns:idd="clr-namespace:Avalonia.Xaml.Interactions.DragAndDrop;assembly=Avalonia.Xaml.Interactions.DragAndDrop">
+        xmlns:idd="clr-namespace:Avalonia.Xaml.Interactions.DragAndDrop;assembly=Avalonia.Xaml.Interactions.DragAndDrop"
+        xmlns:behaviors="clr-namespace:Tkmm.Behaviors">
     <Style Selector="Grid.InstallModDropTarget">
         <Style.Resources>
             <behaviors:InstallModDropHandler x:Key="InstallModDropHandler" />

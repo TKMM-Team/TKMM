@@ -1,8 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Tkmm.Core.Models;
 
-public partial class ExportLocation : ObservableObject
+public sealed partial class ExportLocation : ObservableObject
 {
     [ObservableProperty]
     private string _symlinkPath = string.Empty;

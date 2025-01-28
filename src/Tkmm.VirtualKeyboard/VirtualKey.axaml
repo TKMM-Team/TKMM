@@ -1,0 +1,32 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vk="using:Tkmm.VirtualKeyboard"
+        xmlns:vkc="clr-namespace:Tkmm.VirtualKeyboard.Converters">
+    <Design.PreviewWith>
+        <vk:VirtualKey />
+    </Design.PreviewWith>
+
+    <Style Selector="vk|VirtualKey">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Button CornerRadius="6"
+                        Padding="10"
+                        Command="{Binding InvokeCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=vk:VirtualKeyboard}}"
+                        Width="{TemplateBinding Width}"
+                        MinWidth="84"
+                        Focusable="False"
+                        Height="64"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                    <Viewbox>
+                        <ContentPresenter Tag="{TemplateBinding Converter={x:Static vkc:VirtualKeyContentConverter.Instance}}"
+                                          Content="{TemplateBinding Content}"
+                                          FontWeight="Bold"
+                                          TextAlignment="Center" />
+                    </Viewbox>
+                </Button>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:system="using:System"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Tkmm.Dialogs.ErrorDialog"
+             x:DataType="system:Exception">
+    <Grid>
+        <TextBox Text="{Binding Mode=OneWay}"
+                 TextWrapping="WrapWithOverflow"
+                 IsReadOnly="True" />
+    </Grid>
+</UserControl>

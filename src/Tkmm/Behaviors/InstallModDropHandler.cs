@@ -1,10 +1,9 @@
 ﻿using Avalonia.Input;
 using Avalonia.Platform.Storage;
 using Avalonia.Xaml.Interactions.DragAndDrop;
-using Tkmm.Core.Models.Mods;
-using Tkmm.Core.Services;
-using Tkmm.Helpers;
-using Tkmm.ViewModels.Pages;
+using Microsoft.Extensions.Logging;
+using Tkmm.Actions;
+using TkSharp.Core;
 
 namespace Tkmm.Behaviors;
 
@@ -12,34 +11,32 @@ public class InstallModDropHandler : DropHandlerBase
 {
     public override bool Validate(object? sender, DragEventArgs e, object? sourceContext, object? targetContext, object? state)
     {
-        return e.Data.GetFiles()?.Any(x => Path.Exists(x.Path.LocalPath) && ModReaderProviderService.GetReader(x.Path.LocalPath) is not null) == true
-            || e.Data.GetText() is string text && ModReaderProviderService.GetReader(text) is not null;
+        return true;
     }
 
     public override async void Drop(object? sender, DragEventArgs e, object? sourceContext, object? targetContext)
     {
-        Mod? targetMod = null;
-
-        if (e.Data.GetFiles() is IEnumerable<IStorageItem> paths) {
-            foreach (var path in paths.Select(x => x.Path.LocalPath)) {
-                if (await ModHelper.Import(path) is Mod mod) {
-                    targetMod = mod;
+        try {
+            if (e.Data.GetFiles() is IEnumerable<IStorageItem> paths) {
+                foreach (IStorageItem item in paths) {
+                    switch (item) {
+                        case IStorageFile file:
+                            await using (Stream input = await file.OpenReadAsync()) {
+                                await ModActions.Instance.Install(file.Name, input);
+                            }
+                            break;
+                        case IStorageFolder folder when folder.TryGetLocalPath() is string folderPath:
+                            await ModActions.Instance.Install(folderPath);
+                            break;
+                    }
                 }
             }
-        }
-        else if (e.Data.GetText() is string arg) {
-            if (await ModHelper.Import(arg) is Mod mod) {
-                targetMod = mod;
+            else if (e.Data.GetText() is string arg) {
+                await ModActions.Instance.Install(arg);
             }
         }
-
-        if (targetMod is null) {
-            return;
+        catch (Exception ex) {
+            TkLog.Instance.LogError(ex, "Failed to install drag/drop target: {TargetData}.", e.Data);
         }
-
-        PageManager.Shared.Get<HomePageViewModel>(Page.Home).Current = targetMod;
-        ProfilesPageViewModel profilesPage = PageManager.Shared.Get<ProfilesPageViewModel>(Page.Profiles);
-        profilesPage.MasterSelected = targetMod;
-        profilesPage.Selected = targetMod;
     }
 }

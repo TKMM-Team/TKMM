@@ -3,14 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:app="using:Tkmm"
-             xmlns:comp="using:Tkmm.Core.Components"
-             xmlns:compModels="using:Tkmm.Core.Components.Models"
-             xmlns:converters="using:Tkmm.Converters"
+             xmlns:tk="using:TkSharp.Core.Models"
              xmlns:md="https://github.com/whistyun/Markdown.Avalonia"
-             xmlns:models="using:Tkmm.Core.Models.Mods"
-             xmlns:pages="using:Tkmm.ViewModels.Pages"
              xmlns:pi="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+             xmlns:pages="clr-namespace:Tkmm.ViewModels.Pages"
+             xmlns:desktop="clr-namespace:Tkmm"
+             xmlns:converters="clr-namespace:Tkmm.Converters"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="pages:HomePageViewModel"
@@ -19,7 +17,7 @@
         <Viewbox Name="WelcomePage"
                  MaxWidth="800"
                  MaxHeight="600"
-                 IsVisible="{Binding !Shared.Current.Mods.Count, Source={x:Static comp:ProfileManager.Shared}}">
+                 IsVisible="{Binding !ModManager.CurrentProfile.Mods.Count}">
             <ContentControl HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                 <Grid Width="600"
                       Height="300"
@@ -29,11 +27,11 @@
                                FontFamily="{StaticResource HyliaGlyph}"
                                FontSize="32"
                                Foreground="{DynamicResource SystemChromeHighColor}"
-                               Text="{x:Static app:App.Title}" />
+                               Text="{x:Static desktop:App.Title}" />
                     <HyperlinkButton Margin="5"
                                      HorizontalAlignment="Right"
                                      VerticalAlignment="Center"
-                                     Content="{x:Static app:App.Version}"
+                                     Content="{x:Static desktop:App.Version}"
                                      FontFamily="{StaticResource UbuntuMono}"
                                      FontSize="20" />
                     <Rectangle Grid.Row="1"
@@ -60,10 +58,11 @@
                 </Grid>
             </ContentControl>
         </Viewbox>
+
         <Grid Name="ModDisplayPage"
               Margin="25"
               ColumnDefinitions="*,Auto,0.5*"
-              IsVisible="{Binding Current.Mods.Count, Source={x:Static comp:ProfileManager.Shared}}"
+              IsVisible="{Binding ModManager.CurrentProfile.Mods.Count}"
               RowDefinitions="*,Auto">
             <Grid Grid.RowSpan="2" RowDefinitions="Auto,*">
                 <Grid Name="TitleGrid"
@@ -74,8 +73,8 @@
                                   Height="25"
                                   Margin="0,0,5,0"
                                   Padding="2"
-                                  IsChecked="{Binding Current.Mod.IsEditingOptions}"
-                                  IsVisible="{Binding Current.Mod.IsEditingOptions}">
+                                  IsChecked="{Binding ModManager.CurrentProfile.Selected.IsEditingOptions}"
+                                  IsVisible="{Binding ModManager.CurrentProfile.Selected.IsEditingOptions}">
                         <ToggleButton.Styles>
                             <Styles>
                                 <Style Selector="ToggleButton:not(:checked)">
@@ -89,30 +88,30 @@
                                VerticalAlignment="Center"
                                FontSize="18"
                                FontWeight="Medium"
-                               Text="{Binding Current.Mod.Name}"
+                               Text="{Binding ModManager.CurrentProfile.Selected.Mod.Name}"
                                TextTrimming="CharacterEllipsis"
-                               ToolTip.Tip="{Binding Current.Mod.Name}" />
+                               ToolTip.Tip="{Binding ModManager.CurrentProfile.Selected.Mod.Name}" />
                     <StackPanel Grid.Row="1"
                                 Grid.ColumnSpan="2"
                                 Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center"
                                    FontSize="14"
-                                   Text="{Binding Current.Mod.Author, StringFormat='By {0}'}" />
+                                   Text="{Binding ModManager.CurrentProfile.Selected.Mod.Author, StringFormat='By {0}'}" />
                         <TextBlock VerticalAlignment="Center"
                                    FontSize="14"
-                                   IsVisible="{Binding Current.Mod.Contributors.Count}"
+                                   IsVisible="{Binding ModManager.CurrentProfile.Selected.Mod.Contributors.Count}"
                                    Text=" and " />
                         <HyperlinkButton Padding="1"
                                          Command="{Binding ShowContributorsCommand}"
                                          Content="Contributors"
                                          FontSize="12"
-                                         IsVisible="{Binding Current.Mod.Contributors.Count}" />
+                                         IsVisible="{Binding ModManager.CurrentProfile.Selected.Mod.Contributors.Count}" />
                     </StackPanel>
                 </Grid>
 
                 <Grid Name="ResizeGridTarget"
                       Grid.Row="1"
-                      IsVisible="{Binding !Current.Mod.IsEditingOptions}">
+                      IsVisible="{Binding !ModManager.CurrentProfile.Selected.IsEditingOptions}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="{Binding TopPanel, Source={x:Static pages:HomePageViewModel.Layout}}" />
                         <RowDefinition Height="Auto" />
@@ -125,7 +124,7 @@
                                 BoxShadow="2 2 30 1 #30000000"
                                 CornerRadius="5">
                             <Border ClipToBounds="True" CornerRadius="5">
-                                <Image Source="{Binding Current.Mod.Thumbnail}" />
+                                <Image Source="{Binding ModManager.CurrentProfile.Selected.Mod.Thumbnail.Bitmap}" />
                             </Border>
                         </Border>
                     </Grid>
@@ -152,7 +151,8 @@
                     </Grid>
 
                     <Grid Grid.Row="2">
-                        <md:MarkdownScrollViewer Markdown="{Binding Current.Mod.Description}">
+                        <md:MarkdownScrollViewer
+                            Markdown="{Binding ModManager.CurrentProfile.Selected.Mod.Description}">
                             <md:MarkdownScrollViewer.Styles>
                                 <StyleInclude Source="/Styles/Markdown.axaml" />
                             </md:MarkdownScrollViewer.Styles>
@@ -161,8 +161,8 @@
                 </Grid>
 
                 <Grid Grid.Row="1"
-                      Classes.animate="{Binding Current.Mod.IsEditingOptions}"
-                      IsVisible="{Binding Current.Mod.IsEditingOptions}">
+                      Classes.animate="{Binding ModManager.CurrentProfile.Selected.IsEditingOptions}"
+                      IsVisible="{Binding ModManager.CurrentProfile.Selected.IsEditingOptions}">
                     <Grid.Styles>
                         <Style Selector="Grid.animate">
                             <Style.Animations>
@@ -178,14 +178,15 @@
                         </Style>
                     </Grid.Styles>
                     <ScrollViewer>
-                        <ItemsControl ItemsSource="{Binding Current.Mod.OptionGroups}">
+                        <ItemsControl ItemsSource="{Binding ModManager.CurrentProfile.Selected.Mod.OptionGroups}">
                             <ItemsControl.ItemTemplate>
-                                <DataTemplate DataType="{x:Type models:ModOptionGroup}">
-                                    <Expander Padding="5">
+                                <DataTemplate DataType="{x:Type tk:TkModOptionGroup}">
+                                    <Expander Padding="5" Name="OptionGroupRoot" IsExpanded="{Binding IsEditing}">
                                         <Expander.Header>
                                             <StackPanel Background="Transparent" Orientation="Horizontal">
-                                                <pi:Icon Value="{Binding Icon}" />
-                                                <TextBlock Margin="5,0,0,0">
+                                                <pi:Icon Margin="0,0,5,0" Value="{Binding IconName}"
+                                                         IsVisible="{Binding IconName, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                                <TextBlock>
                                                     <Run Text="{Binding Name}" />
                                                     <Run Text="{Binding Type, Mode=OneWay, StringFormat='({0})'}" />
                                                 </TextBlock>
@@ -200,7 +201,7 @@
                                                                 BoxShadow="2 2 30 1 #30000000"
                                                                 CornerRadius="5">
                                                             <Border ClipToBounds="True" CornerRadius="5">
-                                                                <Image Source="{Binding Thumbnail}" />
+                                                                <Image Source="{Binding Thumbnail.Bitmap}" />
                                                             </Border>
                                                         </Border>
                                                     </StackPanel>
@@ -219,14 +220,31 @@
                                                     VerticalAlignment="Stretch"
                                                     Background="{DynamicResource ControlStrokeColorDefault}"
                                                     IsVisible="{Binding Description.Length}" />
-                                            <ListBox ItemsSource="{Binding Options}"
-                                                     SelectedItems="{Binding SelectedOptions}"
-                                                     SelectionMode="{Binding Type, Mode=OneTime, Converter={x:Static converters:OptionTypeToSelectionMode.Shared}}">
-                                                <ListBox.ItemTemplate>
-                                                    <DataTemplate x:DataType="{x:Type models:ModOption}">
-                                                        <TextBlock HorizontalAlignment="Stretch"
-                                                                   Background="Transparent"
-                                                                   Text="{Binding Name}">
+                                            <ItemsControl ItemsSource="{Binding Options}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate x:DataType="{x:Type tk:TkModOption}">
+                                                        <ToggleButton Name="OptionToggle"
+                                                                      IsChecked="{Binding IsEnabled}" Padding="3" Margin="5,2.5"
+                                                                      HorizontalAlignment="Stretch"
+                                                                      IsHitTestVisible="{Binding CanChangeState}"
+                                                                      HorizontalContentAlignment="Stretch">
+                                                            <Grid ColumnDefinitions="*,Auto">
+                                                                <TextBlock HorizontalAlignment="Stretch"
+                                                                           Margin="3,0,0,0"
+                                                                           Background="Transparent"
+                                                                           Text="{Binding Name}">
+                                                                </TextBlock>
+                                                                <Button IsHitTestVisible="False" Grid.Column="1" Margin="5,0,0,0" Padding="1"
+                                                                        IsVisible="{Binding !IsEnabled}"
+                                                                        IsEnabled="True">
+                                                                    <pi:Icon Value="fa-regular fa-ban" />
+                                                                </Button>
+                                                                <Button IsHitTestVisible="False" Grid.Column="1" Margin="5,0,0,0" Padding="1"
+                                                                        IsVisible="{Binding IsEnabled}"
+                                                                        IsEnabled="True">
+                                                                    <pi:Icon Value="fa-regular fa-circle-check" />
+                                                                </Button>
+                                                            </Grid>
                                                             <ToolTip.Tip>
                                                                 <StackPanel>
                                                                     <TextBlock Margin="0,0,0,5"
@@ -238,21 +256,21 @@
                                                                             BoxShadow="2 2 30 1 #30000000"
                                                                             CornerRadius="5">
                                                                         <Border ClipToBounds="True" CornerRadius="5">
-                                                                            <Image Source="{Binding Thumbnail}" />
+                                                                            <Image Source="{Binding Thumbnail.Bitmap}" />
                                                                         </Border>
                                                                     </Border>
                                                                 </StackPanel>
                                                             </ToolTip.Tip>
-                                                        </TextBlock>
+                                                        </ToggleButton>
                                                     </DataTemplate>
-                                                </ListBox.ItemTemplate>
-                                                <ListBox.Styles>
-                                                    <Style Selector="ListBoxItem">
-                                                        <Setter Property="Padding" Value="10,3,5,4" />
-                                                        <Setter Property="MinHeight" Value="0" />
-                                                    </Style>
-                                                </ListBox.Styles>
-                                            </ListBox>
+                                                </ItemsControl.ItemTemplate>
+                                                <!-- <ListBox.Styles> -->
+                                                <!--     <Style Selector="ListBoxItem"> -->
+                                                <!--         <Setter Property="Padding" Value="10,3,5,4" /> -->
+                                                <!--         <Setter Property="MinHeight" Value="0" /> -->
+                                                <!--     </Style> -->
+                                                <!-- </ListBox.Styles> -->
+                                            </ItemsControl>
                                         </StackPanel>
                                     </Expander>
                                 </DataTemplate>
@@ -272,12 +290,12 @@
             <Grid Name="ModListGrid" Grid.Column="2">
                 <ListBox Classes="ModDragDropListBox"
                          DragDrop.AllowDrop="True"
-                         ItemsSource="{Binding Current.Mods, Source={x:Static comp:ProfileManager.Shared}}"
-                         SelectedItem="{Binding Current}"
+                         ItemsSource="{Binding ModManager.CurrentProfile.Mods}"
+                         SelectedItem="{Binding ModManager.CurrentProfile.Selected}"
                          SelectionMode="AlwaysSelected"
                          ToolTip.Tip="Mods">
                     <ListBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type compModels:ProfileMod}">
+                        <DataTemplate DataType="{x:Type tk:TkProfileMod}">
                             <Grid Background="Transparent" ColumnDefinitions="*,Auto,Auto">
                                 <TextBlock VerticalAlignment="Center"
                                            Background="Transparent"
@@ -290,7 +308,7 @@
                                               Padding="3,1"
                                               HorizontalContentAlignment="Center"
                                               VerticalContentAlignment="Center"
-                                              IsChecked="{Binding Mod.IsEditingOptions}"
+                                              IsChecked="{Binding IsEditingOptions}"
                                               IsVisible="{Binding Mod.OptionGroups.Count}">
                                     <ToggleButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="3">

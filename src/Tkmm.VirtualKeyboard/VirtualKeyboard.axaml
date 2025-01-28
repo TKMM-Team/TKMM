@@ -1,0 +1,67 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vk="using:Tkmm.VirtualKeyboard"
+        xmlns:fa="https://github.com/projektanker/icons.avalonia">
+    <Design.PreviewWith>
+        <vk:VirtualKeyboard />
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type vk:VirtualKeyboard}" TargetType="vk:VirtualKeyboard">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="#CD111111" Padding="35">
+                    <Viewbox VerticalAlignment="Bottom">
+                        <Grid RowDefinitions="*,Auto,Auto">
+                            <Grid Grid.Row="1"
+                                  Margin="0,0,0,54">
+                                <TextBox Text="{TemplateBinding VirtualText, Mode=TwoWay}"
+                                         CaretIndex="{Binding TextPosition, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                         MinHeight="64"
+                                         Width="1280"
+                                         MaxHeight="260"
+                                         HorizontalAlignment="Stretch"
+                                         Name="PART_VirtualKeyboardInput"
+                                         VerticalContentAlignment="Center"
+                                         FontSize="28"/>
+                            </Grid>
+                            <Grid ColumnDefinitions="*,Auto" Grid.Row="2">
+                                <ContentControl HorizontalAlignment="Center"
+                                                Name="PART_LayoutControl"
+                                                Content="{TemplateBinding KeyboardLayout}" />
+                                <Button Grid.Column="1"
+                                        Command="{Binding ExitCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                        VerticalAlignment="Top"
+                                        Padding="5"
+                                        Margin="64,15,15,15"
+                                        Height="44"
+                                        Width="44">
+                                    <Viewbox>
+                                        <fa:Icon Value="fa-regular fa-xmark" />
+                                    </Viewbox>
+                                    <Button.CommandParameter>
+                                        <x:Boolean>False</x:Boolean>
+                                    </Button.CommandParameter>
+                                </Button>
+                                <Button Grid.Column="1"
+                                        Command="{Binding ExitCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Content="OK"
+                                        FontSize="24"
+                                        FontWeight="Bold"
+                                        VerticalAlignment="Bottom"
+                                        Classes="accent"
+                                        Padding="10"
+                                        Margin="44,0,0,0"
+                                        Height="64"
+                                        Width="84">
+                                    <Button.CommandParameter>
+                                        <x:Boolean>True</x:Boolean>
+                                    </Button.CommandParameter>
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Viewbox>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

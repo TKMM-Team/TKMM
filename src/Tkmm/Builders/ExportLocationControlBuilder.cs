@@ -1,12 +1,12 @@
-﻿using Avalonia.Controls;
+﻿using System.Reflection;
+using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Layout;
 using CommunityToolkit.Mvvm.Input;
 using ConfigFactory.Core;
 using ConfigFactory.Generics;
 using FluentAvalonia.UI.Controls;
-using System.Reflection;
-using Tkmm.Builders.Controls;
+using Tkmm.Controls;
 using Tkmm.Core;
 using Tkmm.Core.Models;
 
@@ -28,11 +28,11 @@ internal partial class ExportLocationControlBuilder : ControlBuilder<ExportLocat
 
     public override bool IsValid(Type type)
     {
-        return type == typeof(ExportLocationCollection);
+        return type == typeof(ExportLocations);
     }
 
     [RelayCommand]
-    public static async Task Edit(ExportLocationCollection source)
+    public static async Task Edit(ExportLocations source)
     {
         TaskDialog dialog = new() {
             DataContext = source,
@@ -45,6 +45,6 @@ internal partial class ExportLocationControlBuilder : ControlBuilder<ExportLocat
         };
 
         await dialog.ShowAsync();
-        Config.Shared.Save();
+        TKMM.Config.Save();
     }
 }

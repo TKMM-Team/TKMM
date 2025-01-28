@@ -1,0 +1,34 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vk="using:Tkmm.VirtualKeyboard">
+    <Design.PreviewWith>
+        <vk:VirtualShiftKey />
+    </Design.PreviewWith>
+
+    <Style Selector="vk|VirtualShiftKey">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="MinWidth" Value="84" />
+        <Setter Property="Height" Value="64" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ToggleButton
+                    IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}"
+                    Width="{TemplateBinding Width}"
+                    MinWidth="{TemplateBinding MinWidth}"
+                    Focusable="False"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Height="{TemplateBinding Height}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                    <Viewbox Margin="5">
+                        <ContentPresenter FontWeight="Bold"
+                                          TextAlignment="Center"
+                                          Content="{TemplateBinding Content}" />
+                    </Viewbox>
+                </ToggleButton>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

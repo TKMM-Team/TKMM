@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:models="using:Tkmm.Core.Models.GameBanana"
+             xmlns:models="using:TkSharp.Extensions.GameBanana"
              d:DesignHeight="450"
              d:DesignWidth="800"
-             x:DataType="models:GameBananaModInfo"
+             x:DataType="models:GameBananaModRecord"
              mc:Ignorable="d">
     <Grid>
         <Border ClipToBounds="True" CornerRadius="5">

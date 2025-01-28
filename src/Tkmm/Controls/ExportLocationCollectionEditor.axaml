@@ -1,0 +1,69 @@
+<UserControl x:Class="Tkmm.Controls.ExportLocationCollectionEditor"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:core="using:Tkmm.Core.Models"
+             xmlns:pi="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+             xmlns:local="clr-namespace:Tkmm.Controls"
+             xmlns:controls="clr-namespace:Tkmm.Controls"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             x:DataType="core:ExportLocations"
+             mc:Ignorable="d">
+    <StackPanel Spacing="5">
+        <ListBox Name="LocationsListBox"
+                 ItemsSource="{Binding}"
+                 SelectionMode="AlwaysSelected">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type core:ExportLocation}">
+                    <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+                        <TextBox Width="400"
+                                 MinHeight="0"
+                                 Margin="10,0,0,0"
+                                 Padding="8,3"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Center"
+                                 Background="Transparent"
+                                 Text="{Binding SymlinkPath}"
+                                 ToolTip.Tip="{Binding SymlinkPath}" />
+                        <Button Grid.Column="1"
+                                Width="20"
+                                Height="20"
+                                Margin="5,0,0,0"
+                                Padding="1,1,0,0"
+                                Command="{x:Static controls:ExportLocationCollectionEditor.BrowseCommand}"
+                                CommandParameter="{Binding}">
+                            <pi:Icon Value="fa-regular fa-folder-open" />
+                        </Button>
+                        <!-- ReSharper disable once Xaml.BindingWithContextNotResolved, Xaml.PossibleNullReferenceException -->
+                        <Button Grid.Column="2"
+                                Width="20"
+                                Height="20"
+                                Margin="5,0,0,0"
+                                Padding="0"
+                                x:CompileBindings="False"
+                                Command="{Binding $parent[UserControl].DataContext.DeleteCommand}"
+                                CommandParameter="{Binding}">
+                            <pi:Icon Value="fa-regular fa-trash" />
+                        </Button>
+                        <CheckBox Grid.Column="3"
+                                  Width="20"
+                                  Height="20"
+                                  Margin="5,0,0,0"
+                                  Padding="0"
+                                  IsChecked="{Binding IsEnabled}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Spacing="5">
+            <Button Command="{Binding NewCommand}">
+                <pi:Icon Value="fa-regular fa-plus" />
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

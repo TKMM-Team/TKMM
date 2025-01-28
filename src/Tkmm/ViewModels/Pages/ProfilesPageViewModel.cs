@@ -1,126 +1,88 @@
-﻿using Avalonia.Controls.Notifications;
+﻿using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using FluentAvalonia.UI.Controls;
-using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
-using Tkmm.Core.Components;
-using Tkmm.Core.Components.Models;
-using Tkmm.Core.Models.Mods;
+using Tkmm.Actions;
+using Tkmm.Core;
+using TkSharp;
+using TkSharp.Core.Models;
 
 namespace Tkmm.ViewModels.Pages;
 
 public partial class ProfilesPageViewModel : ObservableObject
 {
-    public ProfileMod? Selected {
-        get => ProfileManager.Shared.Current.Selected;
-        set {
-            OnPropertyChanging();
-            ProfileManager.Shared.Current.Selected = value;
-            OnPropertyChanged();
-        }
-    }
-
     [ObservableProperty]
-    private ObservableCollection<Mod> _filteredMods = GetOrderedMods();
+    private ObservableCollection<TkMod> _filteredMods = GetOrderedMods();
 
     [ObservableProperty]
     private string? _filterArgument;
 
-    [ObservableProperty]
-    private Mod? _masterSelected;
+    public static TkModManager ModManager => TKMM.ModManager;
 
     public ProfilesPageViewModel()
     {
-        ProfileManager.Shared.Current.PropertyChanged += (_, e) => {
-            if (e.PropertyName == nameof(ProfileManager.Shared.Current.Selected)) {
-                Selected = ProfileManager.Shared.Current.Selected;
-            }
+        ModManager.Mods.CollectionChanged += (_, _) => {
+            FilteredMods = GetOrderedMods();
         };
     }
 
     [RelayCommand]
-    private void Remove()
+    private static void Create()
     {
-        if (Selected is not null) {
-            ProfileManager.Shared.Current.Mods.Remove(Selected);
-        }
+        TkProfile newProfile = new() {
+            Name = Locale[TkLocale.DefaultProfileName, TKMM.ModManager.Profiles.Count + 1]
+        };
+        
+        TKMM.ModManager.Profiles.Add(newProfile);
+        TKMM.ModManager.CurrentProfile = newProfile;
     }
 
     [RelayCommand]
-    private Task MoveUp()
+    private static void AddToProfile(TkMod mod)
     {
-        if (Selected is not null) {
-            Selected = ProfileManager.Shared.Current.Move(Selected, -1);
+        TkProfileMod target = mod.GetProfileMod();
+        ObservableCollection<TkProfileMod> mods = TKMM.ModManager.GetCurrentProfile().Mods;
+
+        if (mods.Contains(target)) {
+            return;
         }
 
-        return Task.CompletedTask;
+        mods.Add(target);
+        TKMM.ModManager.GetCurrentProfile().Selected = target;
     }
 
     [RelayCommand]
-    private Task MoveDown()
+    private static async Task Remove()
     {
-        if (Selected is not null) {
-            Selected = ProfileManager.Shared.Current.Move(Selected, 1);
-        }
-
-        return Task.CompletedTask;
+        await ModActions.Instance.RemoveModFromProfile();
     }
 
     [RelayCommand]
-    private static async Task Uninstall(Mod? target)
+    private static void MoveUp()
+    {
+        TKMM.ModManager.GetCurrentProfile().MoveUp();
+    }
+
+    [RelayCommand]
+    private static void MoveDown()
+    {
+        TKMM.ModManager.GetCurrentProfile().MoveDown();
+    }
+
+    [RelayCommand]
+    private static async Task Uninstall(TkMod? target)
     {
         if (target is null) {
             return;
         }
 
-        ContentDialog dialog = new() {
-            Content = $"""
-            Are you sure you would like to uninstall '{target.Name}'?
-
-            This cannot be undone.
-            """,
-            IsPrimaryButtonEnabled = true,
-            IsSecondaryButtonEnabled = true,
-            PrimaryButtonText = "Uninstall Mod",
-            SecondaryButtonText = "Cancel",
-            DefaultButton = ContentDialogButton.Secondary,
-            Title = "Warning"
-        };
-
-        if (await dialog.ShowAsync() == ContentDialogResult.Primary) {
-            target.Uninstall();
-        }
+        await ModActions.Instance.UninstallMod(target);
     }
 
     [RelayCommand]
-    private static async Task DeleteCurrentProfile()
+    private static Task DeleteCurrentProfile()
     {
-        if (ProfileManager.Shared.Profiles.Count < 2) {
-            App.Toast("Cannot delete the last profile!", "Error", NotificationType.Error);
-            return;
-        }
-
-        ContentDialog dialog = new() {
-            Title = "Delete Profile",
-            Content = $"""
-            Are you sure you would like to delete the profile '{ProfileManager.Shared.Current.Name}'?
-
-            This cannot be undone.
-            """,
-            PrimaryButtonText = "Delete",
-            SecondaryButtonText = "Cancel",
-        };
-
-        if (await dialog.ShowAsync() != ContentDialogResult.Primary) {
-            return;
-        }
-
-        int currentIndex = ProfileManager.Shared.Profiles.IndexOf(ProfileManager.Shared.Current);
-        ProfileManager.Shared.Profiles.RemoveAt(currentIndex);
-        ProfileManager.Shared.Current = ProfileManager.Shared.Profiles[currentIndex == ProfileManager.Shared.Profiles.Count
-            ? --currentIndex : currentIndex
-        ];
+        return ProfileActions.Instance.DeleteProfile();
     }
 
     partial void OnFilterArgumentChanged(string? value)
@@ -130,15 +92,15 @@ public partial class ProfilesPageViewModel : ObservableObject
             return;
         }
 
-        FilteredMods = [..ProfileManager.Shared.Mods
-            .Where(x => x.Name.Contains(value, StringComparison.InvariantCultureIgnoreCase) || value.Contains(x.Name, StringComparison.InvariantCultureIgnoreCase))
-            .OrderBy(x => x.Name)
+        FilteredMods = [..TKMM.ModManager.Mods
+            .Where(mod => mod.Name.Contains(value, StringComparison.InvariantCultureIgnoreCase) || value.Contains(mod.Name, StringComparison.InvariantCultureIgnoreCase))
+            .OrderBy(mod => mod.Name)
         ];
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static ObservableCollection<Mod> GetOrderedMods()
+    private static ObservableCollection<TkMod> GetOrderedMods()
     {
-        return [.. ProfileManager.Shared.Mods.OrderBy(x => x.Name)];
+        return [.. TKMM.ModManager.Mods.OrderBy(x => x.Name)];
     }
 }

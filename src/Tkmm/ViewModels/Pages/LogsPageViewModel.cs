@@ -1,26 +1,18 @@
-﻿using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
+﻿using System.Collections.ObjectModel;
 using Avalonia.Input.Platform;
-using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using Tkmm.Core;
+using Tkmm.Core.Logging;
 using Tkmm.Core.Models;
-using Tkmm.Views.Pages;
 
 namespace Tkmm.ViewModels.Pages;
 
-public partial class LogsPageViewModel(LogsPageView view) : ObservableObject
+public partial class LogsPageViewModel : ObservableObject
 {
-    private readonly LogsPageView _view = view;
+    public static ObservableCollection<EventLog> Logs => EventLogger.Logs;
 
     [ObservableProperty]
-    private ObservableCollection<SystemLog> _logs = [];
-
-    [ObservableProperty]
-    private SystemLog? _selected;
+    private EventLog? _selected;
 
     [RelayCommand]
     private void Copy()
@@ -29,7 +21,7 @@ public partial class LogsPageViewModel(LogsPageView view) : ObservableObject
             return;
         }
 
-        Copy(Selected.Message);
+        Copy(Selected.ToString());
     }
 
     [RelayCommand]
@@ -44,48 +36,8 @@ public partial class LogsPageViewModel(LogsPageView view) : ObservableObject
 
     private static void Copy(string text)
     {
-        if (Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop) {
-            return;
-        }
-
-        if (desktop.MainWindow?.Clipboard is IClipboard clipboard) {
+        if (App.XamlRoot.Clipboard is IClipboard clipboard) {
             clipboard.SetTextAsync(text);
-        }
-    }
-
-    public LogsPageViewModel RegisterListener()
-    {
-        Trace.Listeners.Add(new LogsListener(this));
-        return this;
-    }
-
-    private class LogsListener : TraceListener
-    {
-        private const string NULL = "(null)";
-        private readonly string _logsPath = Path.Combine(Config.DocumentsFolder, "log.txt");
-        private readonly LogsPageViewModel _vm;
-        private readonly StreamWriter _writer;
-
-        public LogsListener(LogsPageViewModel vm)
-        {
-            _vm = vm;
-
-            FileStream fs = File.Create(_logsPath);
-            _writer = new(fs) {
-                AutoFlush = true
-            };
-        }
-
-        public override void Write(string? message)
-        {
-            _vm.Logs.Add(new(message ?? NULL));
-            Dispatcher.UIThread.Invoke(_vm._view.Viewer.ScrollToEnd);
-            _writer.WriteLine(message);
-        }
-
-        public override void WriteLine(string? message)
-        {
-            Write(message);
         }
     }
 }

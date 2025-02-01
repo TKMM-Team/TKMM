@@ -1,137 +1,39 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:avedit="https://github.com/avaloniaui/avaloniaedit"
-        xmlns:ctxt="clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia"
-        xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
-        xmlns:mdctl="clr-namespace:Markdown.Avalonia.Controls;assembly=Markdown.Avalonia">
+        xmlns:avaMark="clr-namespace:AvaMark;assembly=AvaMark"
+        xmlns:amc="clr-namespace:AvaMark.Controls;assembly=AvaMark">
     <Design.PreviewWith>
-        <md:MarkdownScrollViewer Width="1000"
-                                 Height="1000"
-                                 Margin="15">
-            > Test
-        </md:MarkdownScrollViewer>
+        <avaMark:MarkdownViewer Width="1000"
+                                Height="1000"
+                                Markdown="**Test** &#x0A; > Test `Test`"
+                                Margin="15"/>
     </Design.PreviewWith>
-
-    <Style Selector="ctxt|CTextBlock">
-        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimary}" />
-    </Style>
-
-    <Style Selector="ctxt|CTextBlock.Heading1">
-        <Setter Property="FontSize" Value="40" />
-        <Setter Property="FontWeight" Value="Normal" />
-        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimary}" />
-    </Style>
-
-    <Style Selector="ctxt|CTextBlock.Heading2">
-        <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimary}" />
-    </Style>
-
-    <Style Selector="ctxt|CTextBlock.Heading3">
-        <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimary}" />
-    </Style>
-
-    <Style Selector="ctxt|CTextBlock.Heading4">
-        <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimary}" />
-    </Style>
-
-    <Style Selector="ctxt|CTextBlock.Heading5">
-        <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimary}" />
-    </Style>
-
-    <Style Selector="ctxt|CHyperlink">
-        <Setter Property="IsUnderline" Value="False" />
-        <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
-        <Setter Property="Transitions">
-            <Setter.Value>
-                <Transitions>
-                    <BrushTransition Property="Foreground" Duration="0:0:0.15" />
-                </Transitions>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style Selector="ctxt|CHyperlink:pointerover">
-        <Setter Property="Foreground" Value="{DynamicResource SystemAccentColorLight1}" />
-    </Style>
-
-    <Style Selector="ctxt|CHyperlink:pressed">
-        <Setter Property="Padding" Value="0" />
-        <Setter Property="Foreground" Value="{DynamicResource SystemAccentColorLight3}" />
-    </Style>
-
-    <Style Selector="Grid.List">
-        <Setter Property="Margin" Value="8,0,0,0" />
-    </Style>
-
-    <Style Selector=".List ctxt|CTextBlock">
-        <Setter Property="Margin" Value="0,3" />
-        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
-    </Style>
-
-    <Style Selector="ctxt|CTextBlock.ListMarker">
-        <Setter Property="Margin" Value="8,3" />
-    </Style>
-
-    <Style Selector="mdctl|Rule.Single">
-        <Setter Property="Margin" Value="0,8" />
-        <Setter Property="Foreground" Value="{DynamicResource ControlStrokeColorDefault}" />
-        <Setter Property="CornerRadius" Value="1" />
-    </Style>
-
-    <Style Selector="mdctl|Rule.TwoLines">
-        <Setter Property="Margin" Value="0,8" />
-        <Setter Property="Foreground" Value="{DynamicResource ControlStrokeColorDefault}" />
-        <Setter Property="CornerRadius" Value="1" />
-    </Style>
-
-    <Style Selector="mdctl|Rule.Bold">
-        <Setter Property="Margin" Value="0,8" />
-        <Setter Property="Foreground" Value="{DynamicResource ControlStrokeColorDefault}" />
-        <Setter Property="CornerRadius" Value="2" />
-    </Style>
-
-    <Style Selector="mdctl|Rule.BoldWithSingle">
-        <Setter Property="Margin" Value="0,8" />
-        <Setter Property="Foreground" Value="{DynamicResource ControlStrokeColorDefault}" />
-        <Setter Property="CornerRadius" Value="2" />
-    </Style>
-
-    <Style Selector="Border.Blockquote">
-        <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorSecondary}" />
-        <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondary}" />
-        <Setter Property="BorderThickness" Value="4,0,0,0" />
-        <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
-    </Style>
-
-    <Style Selector="ctxt|CCode">
-        <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefault}" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Padding" Value="2" />
-        <Setter Property="MonospaceFontFamily" Value="{StaticResource UbuntuMono}" />
-        <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
-    </Style>
-
-    <Style Selector="Border.CodeBlock">
-        <Setter Property="Margin" Value="0,5" />
-        <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefault}" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Padding" Value="5" />
-        <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
-    </Style>
-
-    <Style Selector="TextBlock.CodeBlock">
-        <Setter Property="Foreground" Value="{DynamicResource SystemAccentColorDark1}" />
-        <Setter Property="Background" Value="Transparent" />
-    </Style>
-
-    <Style Selector="avedit|TextEditor">
+    
+    <StyleInclude Source="avares://AvaMark/Styles/Fluent.axaml" />
+    
+    <Style Selector="amc|InlineCodeBlock">
         <Setter Property="FontFamily" Value="{StaticResource UbuntuMono}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid>
+                    <Border CornerRadius="{TemplateBinding CornerRadius}"
+                            Padding="3,0,3,1"
+                            Background="{TemplateBinding Background}">
+                        <TextBlock Text="{TemplateBinding Text}"
+                                   VerticalAlignment="Bottom"
+                                   Margin="{TemplateBinding Padding}"
+                                   FontWeight="{TemplateBinding FontWeight}"
+                                   FontStyle="{TemplateBinding FontStyle}"
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   FontFeatures="{TemplateBinding FontFeatures}"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   FontStretch="{TemplateBinding FontStretch}"
+                                   Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
     </Style>
 </Styles>

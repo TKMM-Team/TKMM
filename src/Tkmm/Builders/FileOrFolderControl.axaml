@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:Tkmm.Builders"
+             xmlns:fa="https://github.com/projektanker/icons.avalonia"
+             xmlns:markup="clr-namespace:Tkmm.Markup"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="local:FileOrFolderControlContext"
+             x:Class="Tkmm.Builders.FileOrFolderControl">
+    <Grid ColumnDefinitions="*,Auto,Auto" VerticalAlignment="Top">
+        <TextBox Text="{Binding Target}"
+                 VerticalAlignment="Top" />
+        <Button Grid.Column="1"
+                Width="32"
+                VerticalAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                Padding="0"
+                Margin="5,0,0,0"
+                ToolTip.Tip="{markup:Locale Tip_BrowseFile}"
+                Command="{Binding OpenFileCommand}">
+            <fa:Icon Value="fa-regular fa-file" />
+        </Button>
+        <Button Grid.Column="2"
+                Width="32"
+                Margin="5,0,0,0"
+                VerticalAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                Padding="0"
+                ToolTip.Tip="{markup:Locale Tip_BrowseFolder}"
+                Command="{Binding OpenFolderCommand}">
+            <fa:Icon Value="fa-regular fa-folder-open" />
+        </Button>
+    </Grid>
+</UserControl>

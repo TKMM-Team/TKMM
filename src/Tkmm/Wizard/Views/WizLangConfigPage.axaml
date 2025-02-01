@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:ext="using:Tkmm.Markup"
+             xmlns:vm="using:Tkmm.Wizard.ViewModels"
+             xmlns:core="using:Tkmm.Core"
+             x:Class="Tkmm.Wizard.Views.WizLangConfigPage">
+    <Grid>
+        <ComboBox ItemsSource="{Binding GameLanguages, Source={x:Static core:Config.Shared}}" SelectedItem="{Binding GameLanguage, Source={x:Static core:Config.Shared}}" />
+    </Grid>
+</UserControl>

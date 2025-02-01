@@ -3,11 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:comp="using:Tkmm.Core.Components"
-             xmlns:compModels="using:Tkmm.Core.Components.Models"
-             xmlns:models="using:Tkmm.Core.Models.Mods"
-             xmlns:pages="using:Tkmm.ViewModels.Pages"
+             xmlns:tk="using:TkSharp.Core.Models"
              xmlns:pi="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+             xmlns:pages="clr-namespace:Tkmm.ViewModels.Pages"
+             xmlns:local="using:Tkmm.Views.Pages"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="pages:ProfilesPageViewModel"
@@ -21,10 +20,10 @@
             <Grid ColumnDefinitions="*,Auto,Auto">
                 <ComboBox Name="Profiles"
                           HorizontalAlignment="Stretch"
-                          ItemsSource="{Binding Profiles, Source={x:Static comp:ProfileManager.Shared}}"
-                          SelectedItem="{Binding Current, Source={x:Static comp:ProfileManager.Shared}}">
+                          ItemsSource="{Binding ModManager.Profiles}"
+                          SelectedItem="{Binding ModManager.CurrentProfile}">
                     <ComboBox.ItemTemplate>
-                        <DataTemplate x:DataType="{x:Type compModels:Profile}">
+                        <DataTemplate x:DataType="{x:Type tk:TkProfile}">
                             <TextBlock Text="{Binding Name}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
@@ -35,7 +34,7 @@
                         Height="30"
                         Margin="10,0,0,0"
                         Padding="0"
-                        Command="{Binding CreateNewCommand, Source={x:Static comp:ProfileManager.Shared}}"
+                        Command="{Binding CreateCommand}"
                         ToolTip.Tip="Create a new profile">
                     <pi:Icon Value="fa-solid fa-plus" />
                 </Button>
@@ -55,7 +54,7 @@
                 <Border Height="1"
                         Margin="0,10"
                         Background="{DynamicResource SystemAccentColor}" />
-                <TextBox Text="{Binding Current.Name, Source={x:Static comp:ProfileManager.Shared}}" Watermark="Profile Name" />
+                <TextBox Text="{Binding ModManager.CurrentProfile.Name}" Watermark="Profile Name" />
             </StackPanel>
 
             <Grid Grid.Row="2"
@@ -64,12 +63,12 @@
                 <ListBox Name="ProfileListBox"
                          Classes="ModDragDropListBox"
                          DragDrop.AllowDrop="True"
-                         ItemsSource="{Binding Current.Mods, Source={x:Static comp:ProfileManager.Shared}}"
-                         SelectedItem="{Binding Selected}"
+                         ItemsSource="{Binding ModManager.CurrentProfile.Mods}"
+                         SelectedItem="{Binding ModManager.CurrentProfile.Selected}"
                          SelectionMode="AlwaysSelected"
                          ToolTip.Tip="Mods">
                     <ListBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type compModels:ProfileMod}">
+                        <DataTemplate DataType="{x:Type tk:TkProfileMod}">
                             <Grid ColumnDefinitions="*,Auto">
                                 <TextBlock VerticalAlignment="Center"
                                            Background="Transparent"
@@ -123,27 +122,31 @@
                      Classes="ModDragDropListBox"
                      DragDrop.AllowDrop="True"
                      ItemsSource="{Binding FilteredMods}"
-                     SelectedItem="{Binding MasterSelected}"
                      SelectionMode="AlwaysSelected"
                      ToolTip.Tip="All Mods">
                 <ListBox.ItemTemplate>
-                    <DataTemplate DataType="{x:Type models:Mod}">
+                    <DataTemplate DataType="{x:Type tk:TkMod}">
                         <Grid ColumnDefinitions="*,Auto,Auto">
                             <TextBlock VerticalAlignment="Center"
                                        Background="Transparent"
                                        Text="{Binding Name}"
                                        TextTrimming="CharacterEllipsis"
                                        ToolTip.Tip="{Binding Name}" />
+                            
+                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
                             <Button Grid.Column="1"
                                     Width="25"
                                     Height="25"
                                     Padding="0"
                                     VerticalAlignment="Stretch"
-                                    Command="{Binding AddToCurrentProfileCommand}"
+                                    x:CompileBindings="False"
+                                    Command="{Binding $parent[UserControl].DataContext.AddToProfileCommand}"
+                                    CommandParameter="{Binding}"
                                     ToolTip.Tip="Add to current profile">
                                 <pi:Icon Value="fa-solid fa-plus" />
                             </Button>
-                            <!-- ReSharper disable once Xaml.PossibleNullReferenceException, Xaml.BindingWithContextNotResolved -->
+                            
+                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
                             <Button Grid.Column="2"
                                     Width="25"
                                     Height="25"

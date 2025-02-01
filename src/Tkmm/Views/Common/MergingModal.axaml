@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:ext="using:Tkmm.Markup"
+             xmlns:cp="using:Tkmm.Components"
+             x:Class="Tkmm.Views.Common.MergingModal">
+    <Grid Background="#CD111111">
+        <Border Padding="25"
+                Margin="200,0"
+                VerticalAlignment="Center"
+                BoxShadow="5 5 25 0 #CD000000"
+                BorderBrush="{DynamicResource ThemeBorderLowBrush}"
+                BorderThickness="2"
+                Background="{DynamicResource ThemeBackgroundBrush}"
+                CornerRadius="{DynamicResource ControlCornerRadius}">
+            <Grid RowDefinitions="Auto,*,Auto">
+                <TextBlock FontSize="30"
+                           FontFamily="{StaticResource HyliaGlyph}"
+                           Text="{ext:Locale Status_Merging}" />
+                <TextBlock Grid.Row="1"
+                           FontSize="16"
+                           TextWrapping="WrapWithOverflow"
+                           FontStyle="Italic"
+                           Margin="0,5,0,35"
+                           Text="{Binding Message, Source={x:Static cp:TriviaProvider.Instance}}" />
+                <ProgressBar IsIndeterminate="True" Grid.Row="2" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

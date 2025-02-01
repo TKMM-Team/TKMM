@@ -1,8 +1,7 @@
-﻿using Avalonia.Controls;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using Tkmm.Core;
+using Avalonia.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Tkmm.Models;
 
@@ -29,17 +28,17 @@ public partial class LayoutConfig : ObservableObject
     {
         string file = GetPath(name);
         if (!File.Exists(file)) {
-            return new() {
+            return new LayoutConfig {
                 Name = name
             };
         }
 
         using FileStream fs = File.OpenRead(file);
-        LayoutConfig result = JsonSerializer.Deserialize<LayoutConfig>(fs) ?? new();
+        LayoutConfig result = JsonSerializer.Deserialize(fs, Tkmm.Models.LayoutConfigJsonContext.Default.LayoutConfig) ?? new LayoutConfig();
 
         result.Name = name;
-        result.TopPanel = new(result.TopPanelValue, result.TopPanelGridUnitType);
-        result.LowerPanel = new(result.LowerPanelValue, result.LowerPanelGridUnitType);
+        result.TopPanel = new GridLength(result.TopPanelValue, result.TopPanelGridUnitType);
+        result.LowerPanel = new GridLength(result.LowerPanelValue, result.LowerPanelGridUnitType);
 
         return result;
     }
@@ -52,7 +51,7 @@ public partial class LayoutConfig : ObservableObject
 
     private static string GetPath(string name)
     {
-        string folder = Path.Combine(Config.Shared.StaticStorageFolder, "Layout");
+        string folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".layout");
         Directory.CreateDirectory(folder);
         return Path.Combine(folder, $"{name}.json");
     }
@@ -69,3 +68,6 @@ public partial class LayoutConfig : ObservableObject
         LowerPanelValue = value.Value;
     }
 }
+
+[JsonSerializable(typeof(LayoutConfig))]
+public partial class LayoutConfigJsonContext : JsonSerializerContext;

@@ -1,12 +1,3 @@
-[submodule "lib/MalsMerger"]
-	path = lib/MalsMerger
-	url = https://github.com/ArchLeaders/MalsMerger
-[submodule "lib/TotK-RstbCalculator"]
-	path = lib/TotK-RstbCalculator
-	url = https://github.com/ArchLeaders/TotK-RstbCalculator
-[submodule "lib/TKMM-SARC"]
-	path = lib/TKMM-SARC
-	url = https://github.com/okmika/TKMM-SARC
-[submodule "lib/RsdbMerger"]
-	path = lib/RsdbMerger
-	url = https://github.com/ArchLeaders/RsdbMerger
+[submodule "lib/TkSharp"]
+	path = lib/TkSharp
+	url = https://github.com/TKMM-Team/TkSharp

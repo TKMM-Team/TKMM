@@ -6,6 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://LoadingIndicators.Avalonia/LoadingIndicators.axaml" />
                 <ResourceDictionary>
                     <FontFamily x:Key="UbuntuMono">avares://Tkmm/Assets/Fonts/UbuntuMono/#Ubuntu Mono</FontFamily>
                     <FontFamily x:Key="HyliaGlyph">avares://Tkmm/Assets/Fonts/Nin-ZeldaGlyphs-v2/Nin-ZeldaGlyphs-v2-Deco.bfotf.ttf#Nin-Zelda Glyphs v2, Deco</FontFamily>
@@ -13,31 +14,30 @@
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
-                    <SolidColorBrush x:Key="SystemChromeHighColor">#FFACACAC</SolidColorBrush>
-                    <SolidColorBrush x:Key="SystemChromeLowColor">Transparent</SolidColorBrush>
-                    <SolidColorBrush x:Key="SystemChromeMediumColor">#FFF2F2F2</SolidColorBrush>
-                    <SolidColorBrush x:Key="SystemChromeMediumLowColor">#FFE6E6E6</SolidColorBrush>
+                    <Color x:Key="SystemChromeHighColor">#FFACACAC</Color>
+                    <Color x:Key="SystemChromeLowColor">Transparent</Color>
+                    <Color x:Key="SystemChromeMediumColor">#FFF2F2F2</Color>
+                    <Color x:Key="SystemChromeMediumLowColor">#FFE6E6E6</Color>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="SystemChromeHighColor">#FF737373</SolidColorBrush>
-                    <SolidColorBrush x:Key="SystemChromeLowColor">Transparent</SolidColorBrush>
-                    <SolidColorBrush x:Key="SystemChromeMediumColor">#FF2B2B2B</SolidColorBrush>
-                    <SolidColorBrush x:Key="SystemChromeMediumLowColor">#FF1F1F1F</SolidColorBrush>
+                    <Color x:Key="SystemChromeHighColor">#FF737373</Color>
+                    <Color x:Key="SystemChromeLowColor">Transparent</Color>
+                    <Color x:Key="SystemChromeMediumColor">#FF2B2B2B</Color>
+                    <Color x:Key="SystemChromeMediumLowColor">#FF1F1F1F</Color>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
-
     </Application.Resources>
 
     <Application.Styles>
-        <!--  Included for Markdown.Avalonia  -->
-        <SimpleTheme />
         <sty:FluentAvaloniaTheme PreferUserAccentColor="True" />
         <StyleInclude Source="avares://ConfigFactory.Avalonia/Themes/Fluent/ConfigFactory.Avalonia.axaml" />
+        <StyleInclude Source="avares://Tkmm.VirtualKeyboard/Styles/Fluent.axaml" />
         <StyleInclude Source="/Styles/ContainerStyles.axaml" />
         <StyleInclude Source="/Styles/MenuItem.axaml" />
         <StyleInclude Source="/Styles/ListBoxStyles.axaml" />
         <StyleInclude Source="/Styles/RadioButtonStyles.axaml" />
         <StyleInclude Source="/Styles/ToastStyles.axaml" />
+        <StyleInclude Source="/Styles/Markdown.axaml" />    
     </Application.Styles>
 </Application>

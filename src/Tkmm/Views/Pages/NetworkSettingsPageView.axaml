@@ -1,0 +1,152 @@
+<UserControl x:Class="Tkmm.Views.Pages.NetworkSettingsPageView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:li="using:LoadingIndicators.Avalonia"
+             xmlns:pages="using:Tkmm.ViewModels.Pages"
+             xmlns:nx="using:Tkmm.Core.Models.NX"
+             xmlns:ext="using:Tkmm.Markup"
+             xmlns:fa="https://github.com/projektanker/icons.avalonia"
+             x:DataType="pages:NetworkSettingsPageViewModel">
+    <Grid Margin="20"
+          ColumnDefinitions="2*,*">
+        <Grid RowDefinitions="Auto,Auto,*" Margin="0,0,20,0" IsEnabled="{Binding WiFiService.IsEnabled}">
+            <TextBlock
+                Text="{ext:Locale NetworkSettings_Header_WirelessNetworks}"
+                FontSize="20"
+                FontWeight="Bold"
+                Margin="0,0,0,10" />
+
+            <StackPanel Spacing="10" Grid.Row="1">
+                <Button
+                    Content="{ext:Locale NetworkSettings_Action_RefreshNetworks_Name}"
+                    Command="{Binding LocateNetworksCommand}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="2"
+                        Spacing="15"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        IsVisible="{Binding IsLoading}">
+                <li:LoadingIndicator Mode="Ring"
+                                     IsHitTestVisible="False"
+                                     Margin="0,-30,0,0"
+                                     SpeedRatio="0.9"
+                                     Height="200"
+                                     Foreground="{DynamicResource SystemAccentColor}" />
+                <TextBlock Text="{ext:Locale NetworkSettings_Modal_ScanningMessage}"
+                           Margin="0,-30,0,0"
+                           TextAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontSize="16" />
+            </StackPanel>
+
+            <ScrollViewer Grid.Row="2" Margin="0,10,0,0">
+                <ItemsControl ItemsSource="{Binding Networks}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type nx:NxNetwork}">
+                            <Expander Margin="0,0,15,10">
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal" Spacing="5">
+                                        <TextBlock Text="{Binding Ssid}" />
+                                        <TextBlock Text="[Connected]"
+                                                   IsVisible="{Binding IsConnected}"
+                                                   Foreground="{DynamicResource HighlightColor}" />
+                                    </StackPanel>
+                                </Expander.Header>
+
+                                <Grid ColumnDefinitions="Auto,Auto,*,Auto">
+                                    <Button Content="{ext:Locale NetworkSettings_Action_ConnectNetwork}"
+                                            IsVisible="{Binding !IsConnected}"
+                                            Command="{Binding ConnectCommand}" />
+                                    <TextBox Grid.Column="2"
+                                             Margin="5,0,0,0"
+                                             Text="{Binding Passphrase}"
+                                             IsReadOnly="{Binding ConnectCommand.IsRunning}"
+                                             KeyDown="PasswordBox_KeyDown"
+                                             Watermark="{ext:Locale NetworkSettings_Input_Password_Watermark}"
+                                             PasswordChar="*">
+                                        <TextBox.IsVisible>
+                                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                                <Binding Path="!IsConnected" />
+                                                <Binding Path="!IsKnown" />
+                                            </MultiBinding>
+                                        </TextBox.IsVisible>
+                                    </TextBox>
+                                    <Button Command="{Binding ConnectCommand.Cancel}"
+                                            VerticalAlignment="Center"
+                                            Margin="5,0,0,0"
+                                            Grid.Column="3"
+                                            IsVisible="{Binding !IsConnected}"
+                                            IsEnabled="{Binding ConnectCommand.IsRunning}"
+                                            Padding="3">
+                                        <fa:Icon Value="fa-regular fa-ban"/>
+                                    </Button>
+
+                                    <Button Content="{ext:Locale NetworkSettings_Action_DisconnectNetwork}"
+                                            IsVisible="{Binding IsConnected}"
+                                            Command="{Binding DisconnectCommand}" />
+                                    <Button Content="{ext:Locale NetworkSettings_Action_ForgetNetwork}"
+                                            IsVisible="{Binding IsKnown}"
+                                            Margin="5,0,0,0"
+                                            Grid.Column="1"
+                                            Command="{Binding ForgetCommand}" />
+                                </Grid>
+                            </Expander>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid RowDefinitions="*,*" Grid.Column="1">
+            <Grid RowDefinitions="Auto,*">
+                <TextBlock Text="{ext:Locale NetworkSettings_Header_Services}"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10" />
+                
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding NetworkServices}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type nx:NxNetworkService}">
+                            <ToggleSwitch IsChecked="{Binding IsEnabled}"
+                                          OnContent="{Binding Name, StringFormat='{}{0} Enabled'}"
+                                          OffContent="{Binding Name, StringFormat='{}{0} Disabled'}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>    
+                </ItemsControl>
+            </Grid>
+            <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,*" Grid.Row="1">
+                <Grid.Styles>
+                    <Style Selector="TextBlock.Property">
+                        <Setter Property="FontFamily" Value="{StaticResource UbuntuMono}" />
+                    </Style>
+                    <Style Selector="TextBlock.Value">
+                        <Setter Property="FontWeight" Value="Bold" />
+                    </Style>
+                </Grid.Styles>
+                
+                <TextBlock Text="{ext:Locale NetworkSettings_Header_Properties}"
+                           Grid.ColumnSpan="2"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10" />
+
+                <StackPanel Spacing="5" Grid.Row="1">
+                    <TextBlock Classes="Property" Text="{ext:Locale NetworkSettings_Header_LocalMacAddressProperty}" Margin="0,0,0,10" />
+                    <TextBlock Classes="Property" Text="{ext:Locale NetworkSettings_Header_IpAddressProperty}" />
+                    <TextBlock Classes="Property" Text="{ext:Locale NetworkSettings_Header_SubnetMaskProperty}" />
+                    <TextBlock Classes="Property" Text="{ext:Locale NetworkSettings_Header_GatewayProperty}" />
+                </StackPanel>
+
+                <StackPanel Spacing="5" Grid.Column="1" Grid.Row="1">
+                    <TextBlock Classes="Property Value" Text="{Binding MacAddress}" Margin="0,0,0,10" />
+                    <StackPanel IsVisible="{Binding Connected, Converter={x:Static ObjectConverters.IsNotNull}}">
+                        <TextBlock Classes="Property Value" Text="{Binding Connected.IpAddress}" />
+                        <TextBlock Classes="Property Value" Text="{Binding Connected.SubnetMask}" />
+                        <TextBlock Classes="Property Value" Text="{Binding Connected.Gateway}" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

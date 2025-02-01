@@ -3,7 +3,7 @@ using Projektanker.Icons.Avalonia.FontAwesome;
 
 namespace Tkmm.Components;
 
-public class FontAwesomeJsonStreamProvider : IFontAwesomeUtf8JsonStreamProvider
+public sealed class FontAwesomeJsonStreamProvider : IFontAwesomeUtf8JsonStreamProvider
 {
     public static readonly FontAwesomeJsonStreamProvider Instance = new();
 

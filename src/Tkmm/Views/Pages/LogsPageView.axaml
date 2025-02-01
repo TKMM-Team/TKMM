@@ -1,77 +1,75 @@
 <UserControl x:Class="Tkmm.Views.Pages.LogsPageView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:converters="using:Tkmm.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:models="clr-namespace:Tkmm.Core.Models;assembly=Tkmm.Core"
-             xmlns:pages="using:Tkmm.ViewModels.Pages"
+             xmlns:models="using:Tkmm.Core.Models"
              xmlns:pi="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+             xmlns:pages1="clr-namespace:Tkmm.ViewModels.Pages"
+             xmlns:converters="clr-namespace:Tkmm.Converters"
              d:DesignHeight="450"
              d:DesignWidth="800"
-             x:DataType="pages:LogsPageViewModel"
+             x:DataType="pages1:LogsPageViewModel"
              mc:Ignorable="d">
-    <ScrollViewer Name="Viewer">
-        <ListBox Margin="5"
-                 Padding="10"
-                 AutoScrollToSelectedItem="True"
-                 Background="Transparent"
-                 ItemsSource="{Binding Logs}"
-                 SelectedItem="{Binding Selected}"
-                 SelectionMode="AlwaysSelected">
-            <ListBox.Styles>
-                <Style Selector="ListBoxItem">
-                    <Setter Property="Padding" Value="0" />
-                    <Setter Property="Margin" Value="0" />
-                    <Setter Property="MinHeight" Value="0" />
-                </Style>
-            </ListBox.Styles>
-            <ListBox.ContextFlyout>
-                <Flyout ShowMode="TransientWithDismissOnPointerMoveAway">
-                    <StackPanel Orientation="Horizontal" Spacing="5">
-                        <Button Width="26"
-                                Height="26"
-                                Padding="0"
-                                Command="{Binding CopyCommand}"
-                                ToolTip.Tip="Copy">
-                            <pi:Icon Value="fa-regular fa-copy" />
-                        </Button>
-                        <Button Width="26"
-                                Height="26"
-                                Padding="0"
-                                Command="{Binding CopyMarkdownCommand}"
-                                ToolTip.Tip="Copy Markdown">
-                            <pi:Icon Value="fa-solid fa-brush" />
-                        </Button>
-                    </StackPanel>
-                </Flyout>
-            </ListBox.ContextFlyout>
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type models:SystemLog}">
-                    <Grid>
-                        <Border Margin="1"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Background="{Binding LogLevel, Converter={x:Static converters:LogLevelToBrushConverter.Shared}}"
-                                CornerRadius="3"
-                                Opacity="0.3" />
-                        
-                        <Grid ColumnDefinitions="*,Auto" Margin="5">
-                            <TextBlock VerticalAlignment="Center"
-                                       FontFamily="{StaticResource UbuntuMono}"
-                                       Text="{Binding Message}"
-                                       TextWrapping="WrapWithOverflow" />
-                            <TextBlock Grid.Column="1"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Center"
-                                       FontFamily="{StaticResource UbuntuMono}"
-                                       FontSize="9"
-                                       Text="{Binding Date}" />
-                        </Grid>
-                    
+    <ListBox Margin="5"
+             Padding="10,10,15,10"
+             AutoScrollToSelectedItem="True"
+             Background="Transparent"
+             ItemsSource="{Binding Logs}"
+             SelectedItem="{Binding Selected}"
+             SelectionMode="AlwaysSelected">
+        <ListBox.Styles>
+            <Style Selector="ListBoxItem">
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="MinHeight" Value="0" />
+            </Style>
+        </ListBox.Styles>
+        <ListBox.ContextFlyout>
+            <Flyout ShowMode="TransientWithDismissOnPointerMoveAway">
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <Button Width="26"
+                            Height="26"
+                            Padding="0"
+                            Command="{Binding CopyCommand}"
+                            ToolTip.Tip="Copy">
+                        <pi:Icon Value="fa-regular fa-copy" />
+                    </Button>
+                    <Button Width="26"
+                            Height="26"
+                            Padding="0"
+                            Command="{Binding CopyMarkdownCommand}"
+                            ToolTip.Tip="Copy Markdown">
+                        <pi:Icon Value="fa-solid fa-brush" />
+                    </Button>
+                </StackPanel>
+            </Flyout>
+        </ListBox.ContextFlyout>
+        <ListBox.ItemTemplate>
+            <DataTemplate DataType="{x:Type models:EventLog}">
+                <Grid>
+                    <Border Margin="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{Binding LogLevel, Converter={x:Static converters:LogLevelToBrushConverter.Shared}}"
+                            CornerRadius="3"
+                            Opacity="0.3" />
+
+                    <Grid ColumnDefinitions="*,Auto" Margin="5">
+                        <TextBlock VerticalAlignment="Center"
+                                   FontFamily="{StaticResource UbuntuMono}"
+                                   Text="{Binding Content}"
+                                   TextWrapping="WrapWithOverflow" />
+                        <TextBlock Grid.Column="1"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource UbuntuMono}"
+                                   FontSize="9"
+                                   Text="{Binding Date}" />
                     </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </ScrollViewer>
+
+                </Grid>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
 </UserControl>

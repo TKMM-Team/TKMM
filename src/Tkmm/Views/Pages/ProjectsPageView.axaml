@@ -1,0 +1,319 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="using:Tkmm.ViewModels.Pages"
+             xmlns:tk="using:TkSharp.Packaging"
+             xmlns:fa="https://github.com/projektanker/icons.avalonia"
+             xmlns:converters="clr-namespace:Tkmm.Converters"
+             xmlns:tkm="using:TkSharp.Core.Models"
+             xmlns:avaMark="clr-namespace:AvaMark;assembly=AvaMark"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="pages:ProjectsPageViewModel"
+             x:Class="Tkmm.Views.Pages.ProjectsPageView">
+    <UserControl.DataContext>
+        <pages:ProjectsPageViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <ContentControl x:Key="ContributorsEditor" Name="Root">
+            <Grid Width="460" RowDefinitions="*,Auto">
+                <ItemsControl ItemsSource="{Binding Project.Mod.Contributors}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type tkm:TkModContributor}">
+                            <Grid Margin="0,0,0,5" ColumnDefinitions="Auto,*,1.8*">
+                                <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                <Button Width="25"
+                                        Height="25"
+                                        Padding="0"
+                                        x:CompileBindings="False"
+                                        Command="{Binding #Root.DataContext.Project.Mod.RemoveContributorCommand}"
+                                        CommandParameter="{Binding}">
+                                    <fa:Icon Value="fa-solid fa-trash" />
+                                </Button>
+                                <TextBox Grid.Column="1"
+                                         Margin="5,0,0,0"
+                                         Text="{Binding Author}"
+                                         ToolTip.Tip="Contributor Name"
+                                         Watermark="Contributor Name" />
+                                <TextBox Grid.Column="2"
+                                         Margin="5,0,0,0"
+                                         Text="{Binding Contribution}"
+                                         ToolTip.Tip="The contribution of this author."
+                                         Watermark="The contribution of this author." />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <Button Grid.Row="1"
+                        Width="25"
+                        Height="25"
+                        Padding="0"
+                        Command="{Binding Project.Mod.NewContributorCommand}">
+                    <fa:Icon Value="fa-solid fa-plus" />
+                </Button>
+            </Grid>
+        </ContentControl>
+    </UserControl.Resources>
+    <Grid Margin="15" Background="Transparent"
+          DragDrop.AllowDrop="True" Name="DropTarget">
+
+        <Grid RowDefinitions="Auto,Auto,*" IsVisible="{Binding Project, Converter={x:Static ObjectConverters.IsNull}}">
+            <StackPanel Orientation="Horizontal"
+                        Spacing="10">
+                <Button Command="{Binding NewProjectCommand}">
+                    <StackPanel Spacing="5" Orientation="Horizontal">
+                        <fa:Icon Value="fa-regular fa-folder-plus" />
+                        <TextBlock Text="New Project" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding OpenProjectCommand}">
+                    <StackPanel Spacing="5" Orientation="Horizontal">
+                        <fa:Icon Value="fa-regular fa-folder-open" />
+                        <TextBlock Text="Open Project" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <TextBlock Grid.Row="1" Text="Recent projects" Margin="0,25,0,0"
+                       FontWeight="Bold" FontSize="16" />
+
+            <ListBox ItemsSource="{x:Static tk:TkProjectManager.RecentProjects}"
+                     Margin="0,15,0,0"
+                     DoubleTapped="InputElement_OnDoubleTapped"
+                     Grid.Row="2">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type tk:TkProject}">
+                        <Grid ColumnDefinitions="Auto,Auto,*" IsHitTestVisible="False">
+                            <TextBlock Text="{Binding Mod.Name}" />
+                            <TextBlock IsVisible="{Binding Mod.Version.Length}" Grid.Column="1"
+                                       Text="{Binding Mod.Version, StringFormat='{}[v{0}]'}" Margin="5,0,0,0" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+        <Grid RowDefinitions="Auto,*"
+              ColumnDefinitions="*,1.7*"
+              IsVisible="{Binding Project, Converter={x:Static ObjectConverters.IsNotNull}}">
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Spacing="10">
+                <Button Command="{Binding ExitCommand}" Classes="accent" VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center">
+                    <fa:Icon Value="fa-regular fa-chevron-left" />
+                </Button>
+                <Button Command="{Binding SaveCommand}">
+                    <StackPanel Spacing="5" Orientation="Horizontal">
+                        <fa:Icon Value="fa-regular fa-floppy-disk" />
+                        <TextBlock Text="Save" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding PackageCommand}">
+                    <StackPanel Spacing="5" Orientation="Horizontal">
+                        <fa:Icon Value="fa-regular fa-boxes-packing" />
+                        <TextBlock Text="Package" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding InstallCommand}">
+                    <StackPanel Spacing="5" Orientation="Horizontal">
+                        <fa:Icon Value="fa-regular fa-download" />
+                        <TextBlock Text="Install" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <ScrollViewer Margin="0,15,0,0" Grid.Row="1">
+                <StackPanel Margin="0,0,15,0" Spacing="10">
+                    <TextBox Text="{Binding Project.Mod.Name}" Watermark="Name" />
+                    <TextBox Text="{Binding Project.Mod.Version}" Watermark="Version" />
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBox Text="{Binding Project.Mod.Author}" Watermark="Author" />
+                        <Button Grid.Column="1"
+                                Margin="10,0,0,0"
+                                Command="{Binding EditContributorsCommand}"
+                                CommandParameter="{StaticResource ContributorsEditor}"
+                                Content="..."
+                                ToolTip.Tip="Edit Contributors" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBox
+                            Text="{Binding Project.Mod.Thumbnail, Converter={x:Static converters:PathToThumbnailConverter.Instance}}"
+                            Watermark="Thumbnail" />
+                        <Button Content="..."
+                                Command="{Binding BrowseThumbnailCommand}"
+                                CommandParameter="{Binding Project.Mod}"
+                                Grid.Column="1" Margin="10,0,0,0" />
+                    </Grid>
+
+                    <Border Height="1"
+                            Margin="0,10"
+                            Background="{DynamicResource SystemAccentColor}" />
+
+                    <StackPanel HorizontalAlignment="Right"
+                                Orientation="Horizontal"
+                                Spacing="5">
+                        <Button Padding="5,3"
+                                Command="{Binding ImportOptionGroupCommand}"
+                                Content="Import Option Group"
+                                FontSize="12" />
+                        <Button Padding="5,3"
+                                Command="{Binding RefreshCommand}"
+                                Content="Refresh"
+                                FontSize="12"
+                                ToolTip.Tip="Reload the source folder and all configurations" />
+                    </StackPanel>
+
+                    <ItemsControl ItemsSource="{Binding Project.Mod.OptionGroups}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type tkm:TkModOptionGroup}">
+                                <Expander Margin="0,0,0,5">
+                                    <Expander.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <!-- ReSharper disable once Xaml.PossibleNullReferenceException, Xaml.BindingWithContextNotResolved -->
+                                            <Button Width="24"
+                                                    Height="24"
+                                                    Padding="0"
+                                                    x:CompileBindings="False"
+                                                    Command="{Binding $parent[UserControl].DataContext.RemoveOptionGroupCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    ToolTip.Tip="Remove">
+                                                <fa:Icon Width="16"
+                                                         Height="16"
+                                                         Value="fa-solid fa-trash" />
+                                            </Button>
+                                            <TextBlock Margin="10,0,0,0"
+                                                       VerticalAlignment="Center"
+                                                       Text="{Binding Name}" />
+                                        </StackPanel>
+                                    </Expander.Header>
+                                    <StackPanel Spacing="5">
+                                        <TextBox Text="{Binding Name}" Watermark="Name" />
+                                        <TextBox Text="{Binding Description}" Watermark="Description" />
+                                        <ComboBox HorizontalAlignment="Stretch"
+                                                  ItemsSource="{x:Static tk:TkProjectManager.OptionGroupTypes}"
+                                                  SelectedItem="{Binding Type}" />
+                                        <TextBox Text="{Binding IconName}" Watermark="Icon" />
+                                        <NumericUpDown FormatString="0"
+                                                       Minimum="0"
+                                                       ToolTip.Tip="Priority (0 is Lowest)"
+                                                       Watermark="Priority (0 is Lowest)"
+                                                       Value="{Binding Priority}" />
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <TextBox
+                                                Text="{Binding Thumbnail, Converter={x:Static converters:PathToThumbnailConverter.Instance}}"
+                                                Watermark="Thumbnail" />
+                                            <!-- ReSharper disable once Xaml.PossibleNullReferenceException, Xaml.BindingWithContextNotResolved -->
+                                            <Button Grid.Column="1"
+                                                    Margin="5,0,0,0"
+                                                    x:CompileBindings="False"
+                                                    Command="{Binding $parent[UserControl].DataContext.BrowseThumbnailCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Content="..."
+                                                    ToolTip.Tip="Browse" />
+                                        </Grid>
+
+                                        <!-- ReSharper disable once Xaml.PossibleNullReferenceException, Xaml.BindingWithContextNotResolved -->
+                                        <Button Padding="5,3"
+                                                x:CompileBindings="False"
+                                                Command="{Binding $parent[UserControl].DataContext.ImportOptionCommand}"
+                                                CommandParameter="{Binding}"
+                                                Content="Import Option"
+                                                FontSize="12" />
+
+                                        <ItemsControl ItemsSource="{Binding Options}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type tkm:TkModOption}">
+                                                    <Expander Margin="0,0,0,5">
+                                                        <Expander.Header>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <!-- ReSharper disable once Xaml.PossibleNullReferenceException, Xaml.BindingWithContextNotResolved -->
+                                                                <Button Width="24"
+                                                                        Height="24"
+                                                                        Padding="0"
+                                                                        x:CompileBindings="False"
+                                                                        Command="{Binding $parent[UserControl].DataContext.RemoveOptionCommand}"
+                                                                        CommandParameter="{Binding}"
+                                                                        ToolTip.Tip="Remove">
+                                                                    <fa:Icon Width="16"
+                                                                             Height="16"
+                                                                             Value="fa-solid fa-trash" />
+                                                                </Button>
+                                                                <TextBlock Margin="10,0,0,0"
+                                                                           VerticalAlignment="Center"
+                                                                           Text="{Binding Name}" />
+                                                            </StackPanel>
+                                                        </Expander.Header>
+                                                        <StackPanel Spacing="5">
+                                                            <TextBox Text="{Binding Name}" Watermark="Name" />
+                                                            <TextBox Text="{Binding Description}"
+                                                                     Watermark="Description" />
+                                                            <NumericUpDown FormatString="0"
+                                                                           Minimum="0"
+                                                                           ToolTip.Tip="Priority (0 is Lowest)"
+                                                                           Watermark="Priority (0 is Lowest)"
+                                                                           Value="{Binding Priority}" />
+                                                            <Grid ColumnDefinitions="*,Auto">
+                                                                <TextBox
+                                                                    Text="{Binding Thumbnail, Converter={x:Static converters:PathToThumbnailConverter.Instance}}"
+                                                                    Watermark="Thumbnail" />
+                                                                <!-- ReSharper disable once Xaml.PossibleNullReferenceException, Xaml.BindingWithContextNotResolved -->
+                                                                <Button Grid.Column="1"
+                                                                        Margin="5,0,0,0"
+                                                                        x:CompileBindings="False"
+                                                                        Command="{Binding $parent[UserControl].DataContext.BrowseThumbnailCommand}"
+                                                                        CommandParameter="{Binding}"
+                                                                        Content="..."
+                                                                        ToolTip.Tip="Browse" />
+                                                            </Grid>
+                                                        </StackPanel>
+                                                    </Expander>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                </Expander>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+
+            <TabControl Grid.Column="1" Grid.Row="1">
+                <TabControl.Styles>
+                    <Style Selector="TabItem">
+                        <Setter Property="FontSize" Value="16" />
+                        <Setter Property="Padding" Value="10,6" />
+                    </Style>
+                </TabControl.Styles>
+                <TabItem Header="Edit">
+                    <Grid RowDefinitions="*,0.2*">
+                        <TextBox AcceptsReturn="True"
+                                 AcceptsTab="True"
+                                 Text="{Binding Project.Mod.Description}"
+                                 Watermark="Description (accepts markdown)" />
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Preview">
+                    <ScrollViewer>
+                        <avaMark:MarkdownViewer Markdown="{Binding Project.Mod.Description}" />
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Thumbnail">
+                    <Border CornerRadius="6"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Left"
+                            Padding="2"
+                            BorderBrush="{DynamicResource ButtonBorderBrush}"
+                            BorderThickness="1">
+                        <Border CornerRadius="5"
+                                ClipToBounds="True">
+                            <Image Source="{Binding Project.Mod.Thumbnail.Bitmap}" />
+                        </Border>
+                    </Border>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</UserControl>

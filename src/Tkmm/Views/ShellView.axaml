@@ -3,24 +3,26 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-               xmlns:app="using:Tkmm"
-               xmlns:comp="using:Tkmm.Core.Components"
-               xmlns:core="clr-namespace:Tkmm.Core;assembly=Tkmm.Core"
-               xmlns:helperModels="using:Tkmm.Helpers.Models"
-               xmlns:helpers="using:Tkmm.Helpers"
-               xmlns:keyboard="clr-namespace:Tkmm.Controls.Keyboard"
+               xmlns:core="using:Tkmm.Core"
+               xmlns:tkmm="using:Tkmm"
                xmlns:pi="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
                xmlns:ui="using:FluentAvalonia.UI.Controls"
                xmlns:uiw="using:FluentAvalonia.UI.Windowing"
-               xmlns:vm="using:Tkmm.ViewModels"
-               Title="{x:Static app:App.ShortTitle}"
+               xmlns:desktop="clr-namespace:Tkmm"
+               xmlns:viewModels="clr-namespace:Tkmm.ViewModels"
+               xmlns:components1="clr-namespace:Tkmm.Components"
+               xmlns:models="clr-namespace:Tkmm.Models"
+               Title="{x:Static desktop:App.ShortTitle}"
+               xmlns:wiz="using:Tkmm.Wizard.Views"
+               xmlns:tkmm1="clr-namespace:TkSharp.Core;assembly=TkSharp.Core"
+               CanResize="{Binding !IsFirstTimeSetup}"
                Width="870"
                Height="550"
                MinWidth="650"
                MinHeight="450"
                d:DesignHeight="450"
                d:DesignWidth="800"
-               x:DataType="vm:ShellViewModel"
+               x:DataType="viewModels:ShellViewModel"
                mc:Ignorable="d">
     <!--<uiw:AppWindow.Styles>
         <Style Selector="uiw|AppWindow">
@@ -32,105 +34,129 @@
             <TransformOperationsTransition Property="RenderTransform" Duration="0:0:1" />
         </Transitions>
     </uiw:AppWindow.Transitions>-->
-    <Grid Background="Transparent"
-          Classes="InstallModDropTarget"
-          DragDrop.AllowDrop="True"
-          RowDefinitions="32,*,25">
-        <Grid ColumnDefinitions="Auto,*,Auto,Auto">
-            <Viewbox Width="26"
-                     Height="26"
-                     Margin="4,2"
-                     HorizontalAlignment="Right"
-                     VerticalAlignment="Top"
-                     Stretch="Fill">
-                <Grid>
-                    <Viewbox Width="12"
-                             Height="12"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Top">
-                        <Border Padding="25">
-                            <Path Name="IconBack"
-                                  Data="M502.39,246.08l-81.58-6.2c-8.1-83.89-78.8-149.47-164.82-149.47c-85.86,0-156.46,65.35-164.76,149.02   l-81.63,6.2c-12.81,0.98-12.81,19.75,0,20.73l81.63,6.2c8.31,83.68,78.9,149.02,164.76,149.02c85.71,0,156.21-65.11,164.72-148.58   l81.67-6.21C515.2,265.84,515.2,247.06,502.39,246.08z M256,391.98c-75.1,0-135.98-60.88-135.98-135.98S180.9,120.02,256,120.02   S391.98,180.9,391.98,256S331.1,391.98,256,391.98z"
-                                  Effect="drop-shadow(0 0 75 #45000000)"
-                                  Fill="{DynamicResource SystemAccentColor}" />
-                        </Border>
-                    </Viewbox>
-                    <Viewbox Width="12" Height="12">
-                        <Border Padding="145">
-                            <Grid>
-                                <Path Name="IconFront"
-                                      Data="M509.43,494.3l-132.07-169   c11.68-20.43,18.34-44.09,18.34-69.31c0-25.4-6.76-49.22-18.57-69.74L508.85,17.7c8.23-9.97-5.05-23.27-15.04-15.02L325.18,134.44   c-20.46-11.73-44.18-18.43-69.46-18.43c-25.35,0-49.12,6.73-69.62,18.52L17.61,2.86C7.63-5.37-5.66,7.91,2.57,17.9l131.67,168.48   c-11.78,20.51-18.52,44.28-18.52,69.62c0,25.52,6.83,49.43,18.76,70.04L3.16,494.1c-8.25,9.98,5.04,23.27,15.02,15.04   l168.24-131.48c20.43,11.67,44.08,18.33,69.29,18.33c25.43,0,49.26-6.77,69.81-18.62l168.87,131.95   C504.37,517.57,517.66,504.27,509.43,494.3z M255.71,354.73c-54.53,0-98.73-44.2-98.73-98.73c0-54.53,44.2-98.73,98.73-98.73   s98.73,44.2,98.73,98.73C354.45,310.53,310.24,354.73,255.71,354.73z"
-                                      Effect="drop-shadow(0 0 75 #45000000)"
-                                      Fill="{DynamicResource SystemAccentColor}" />
-                            </Grid>
-                        </Border>
-                    </Viewbox>
-                </Grid>
-            </Viewbox>
-
-            <Menu Name="MainMenu" Grid.Column="1" />
-            <Menu Name="PowerOptionsMenu" Grid.Column="2" HorizontalAlignment="Right" />
-
-            <StackPanel Name="BatteryStatusPanel" 
-                        Grid.Column="3" 
+    <Grid>
+        <Grid IsVisible="{Binding IsFirstTimeSetup}" ColumnDefinitions="*,Auto,Auto">
+            <Menu Name="WizPowerOptionsMenu" IsVisible="False"
+                  Grid.Column="1" />
+            <StackPanel Name="WizNxBatteryStatusPanel"
+                        IsVisible="False"
+                        Grid.Column="2" 
                         Orientation="Horizontal" 
                         HorizontalAlignment="Right" 
                         Margin="5,0">
-                <TextBlock Name="BatteryStatusTextBlock" 
-                        FontSize="15" 
-                        VerticalAlignment="Center" 
-                        Margin="0,0,4,0" 
-                        Text="{Binding BatteryStatus, Mode=OneWay}" />
-                <pi:Icon Name="BatteryIcon" 
-                        Value="{Binding BatteryIcon, Mode=OneWay}" 
-                        FontSize="25"
-                        Margin="0,0,2,0" />
+                <TextBlock FontSize="15" 
+                           VerticalAlignment="Center" 
+                           Margin="0,0,4,0" 
+                           Text="{Binding BatteryCharge, StringFormat={}{0}%, Mode=OneWay}" />
+                <pi:Icon Value="{Binding BatteryIcon, Mode=OneWay}" 
+                         FontSize="25"
+                         Margin="0,0,2,0" />
             </StackPanel>
-        </Grid>
-
-        <ui:NavigationView Name="MainNavigation"
-                           Grid.Row="1"
-                           FooterMenuItemsSource="{Binding FooterPages, Source={x:Static helpers:PageManager.Shared}}"
-                           IsSettingsVisible="False"
-                           MenuItemsSource="{Binding Pages, Source={x:Static helpers:PageManager.Shared}}"
-                           PaneDisplayMode="LeftCompact"
-                           PaneTitle="{x:Static app:App.ShortTitle}"
-                           SelectedItem="{Binding Current, Mode=TwoWay, Source={x:Static helpers:PageManager.Shared}}">
-            <ui:NavigationView.MenuItemTemplate>
-                <DataTemplate x:DataType="helperModels:PageModel">
-                    <ui:NavigationViewItem Content="{Binding Title}"
-                                           IconSource="{Binding Icon}"
-                                           Tag="{Binding Content}"
-                                           ToolTip.Tip="{Binding Description}" />
-                </DataTemplate>
-            </ui:NavigationView.MenuItemTemplate>
-        </ui:NavigationView>
-
-        <Grid Grid.Row="2"
-              ColumnDefinitions="Auto,Auto,*,Auto,Auto"
-              IsHitTestVisible="False">
-            <Border Grid.ColumnSpan="5" Background="{DynamicResource SystemAccentColor}" />
-            <pi:Icon Margin="5,0" Value="{Binding Icon, Source={x:Static core:AppStatus.Shared}}" />
-            <TextBlock Grid.Column="1"
-                       Margin="5,0"
-                       VerticalAlignment="Center"
-                       FontFamily="{StaticResource UbuntuMono}"
-                       Text="{Binding Status, Source={x:Static core:AppStatus.Shared}}" />
-            <TextBlock Grid.Column="3"
-                       Margin="5,0"
-                       VerticalAlignment="Center"
-                       FontFamily="{StaticResource UbuntuMono}"
-                       FontSize="12">
-                <Run Text="{Binding Current.Name, Source={x:Static comp:ProfileManager.Shared}}" />
-                <Run Text=" |" />
-                <Run Text="{x:Static app:App.Title}" />
-                <Run Text=" |" />
-                <Run Text="{Binding Source={x:Static app:App.Version}, StringFormat=' v{0}'}" />
-            </TextBlock>
-        </Grid>
+        </Grid> 
         
-        <Panel Grid.RowSpan="4" Background="Transparent" IsVisible="False">
-            <keyboard:VirtualKeyboard Name="Keyboard" IsVisible="False"></keyboard:VirtualKeyboard>
-        </Panel>
+        <ContentControl IsVisible="{Binding IsFirstTimeSetup}" Name="WizContainer">
+            <wiz:WizPage Tag="{Binding #WizContainer}" />
+        </ContentControl>
+        
+        <Grid Background="Transparent"
+              Classes="InstallModDropTarget"
+              DragDrop.AllowDrop="True"
+              IsVisible="{Binding !IsFirstTimeSetup}"
+              RowDefinitions="32,*,25">
+            
+            <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                <Viewbox Width="26"
+                         Height="26"
+                         Margin="4,2"
+                         HorizontalAlignment="Right"
+                         VerticalAlignment="Top"
+                         Stretch="Fill">
+                    <Grid>
+                        <Viewbox Width="12"
+                                 Height="12"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top">
+                            <Border Padding="25">
+                                <Path Name="IconBack"
+                                      Data="M502.39,246.08l-81.58-6.2c-8.1-83.89-78.8-149.47-164.82-149.47c-85.86,0-156.46,65.35-164.76,149.02   l-81.63,6.2c-12.81,0.98-12.81,19.75,0,20.73l81.63,6.2c8.31,83.68,78.9,149.02,164.76,149.02c85.71,0,156.21-65.11,164.72-148.58   l81.67-6.21C515.2,265.84,515.2,247.06,502.39,246.08z M256,391.98c-75.1,0-135.98-60.88-135.98-135.98S180.9,120.02,256,120.02   S391.98,180.9,391.98,256S331.1,391.98,256,391.98z"
+                                      Effect="drop-shadow(0 0 75 #45000000)"
+                                      Fill="{DynamicResource SystemAccentColor}" />
+                            </Border>
+                        </Viewbox>
+                        <Viewbox Width="12" Height="12">
+                            <Border Padding="145">
+                                <Grid>
+                                    <Path Name="IconFront"
+                                          Data="M509.43,494.3l-132.07-169   c11.68-20.43,18.34-44.09,18.34-69.31c0-25.4-6.76-49.22-18.57-69.74L508.85,17.7c8.23-9.97-5.05-23.27-15.04-15.02L325.18,134.44   c-20.46-11.73-44.18-18.43-69.46-18.43c-25.35,0-49.12,6.73-69.62,18.52L17.61,2.86C7.63-5.37-5.66,7.91,2.57,17.9l131.67,168.48   c-11.78,20.51-18.52,44.28-18.52,69.62c0,25.52,6.83,49.43,18.76,70.04L3.16,494.1c-8.25,9.98,5.04,23.27,15.02,15.04   l168.24-131.48c20.43,11.67,44.08,18.33,69.29,18.33c25.43,0,49.26-6.77,69.81-18.62l168.87,131.95   C504.37,517.57,517.66,504.27,509.43,494.3z M255.71,354.73c-54.53,0-98.73-44.2-98.73-98.73c0-54.53,44.2-98.73,98.73-98.73   s98.73,44.2,98.73,98.73C354.45,310.53,310.24,354.73,255.71,354.73z"
+                                          Effect="drop-shadow(0 0 75 #45000000)"
+                                          Fill="{DynamicResource SystemAccentColor}" />
+                                </Grid>
+                            </Border>
+                        </Viewbox>
+                    </Grid>
+                </Viewbox>
+
+                <Menu Name="MainMenu" Grid.Column="1" />
+                <Menu Name="PowerOptionsMenu" IsVisible="False" Grid.Column="2" />
+                
+                <StackPanel Name="NxBatteryStatusPanel"
+                            IsVisible="False"
+                            Grid.Column="3" 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Right" 
+                            Margin="5,0">
+                    <TextBlock FontSize="15" 
+                               VerticalAlignment="Center" 
+                               Margin="0,0,4,0" 
+                               Text="{Binding BatteryCharge, StringFormat={}{0}%, Mode=OneWay}" />
+                    <pi:Icon Name="BatteryIcon" 
+                             Value="{Binding BatteryIcon, Mode=OneWay}" 
+                             FontSize="25"
+                             Margin="0,0,2,0" />
+                </StackPanel>
+            </Grid>
+
+            <ui:NavigationView Name="MainNavigation"
+                               Grid.Row="1"
+                               FooterMenuItemsSource="{Binding FooterPages, Source={x:Static components1:PageManager.Shared}}"
+                               IsSettingsVisible="False"
+                               MenuItemsSource="{Binding Pages, Source={x:Static components1:PageManager.Shared}}"
+                               PaneDisplayMode="LeftCompact"
+                               PaneTitle="{x:Static desktop:App.ShortTitle}"
+                               SelectedItem="{Binding Current, Mode=TwoWay, Source={x:Static components1:PageManager.Shared}}">
+                <ui:NavigationView.MenuItemTemplate>
+                    <DataTemplate x:DataType="models:PageModel">
+                        <ui:NavigationViewItem Content="{Binding Title}"
+                                               IconSource="{Binding Icon}"
+                                               Tag="{Binding Content}"
+                                               ToolTip.Tip="{Binding Description}" />
+                    </DataTemplate>
+                </ui:NavigationView.MenuItemTemplate>
+            </ui:NavigationView>
+
+            <Grid Grid.Row="2"
+                  ColumnDefinitions="Auto,Auto,*,Auto,Auto"
+                  IsHitTestVisible="False">
+                <Border Grid.ColumnSpan="5" Background="{DynamicResource SystemAccentColor}" />
+                <pi:Icon Margin="5,0" Value="{Binding Icon, Source={x:Static tkmm1:TkStatus.Shared}}" />
+                <TextBlock Grid.Column="1"
+                           Margin="5,0"
+                           VerticalAlignment="Center"
+                           FontFamily="{StaticResource UbuntuMono}">
+                    <Run Text="{Binding Status, Source={x:Static tkmm1:TkStatus.Shared}}" /><Run Text="{Binding Suffix, Source={x:Static tkmm1:TkStatus.Shared}}" />
+                </TextBlock>
+                <TextBlock Grid.Column="3"
+                           Margin="5,0"
+                           VerticalAlignment="Center"
+                           FontFamily="{StaticResource UbuntuMono}"
+                           FontSize="12">
+                    <Run Text="{Binding CurrentProfile.Name, Source={x:Static core:TKMM.ModManager}}" />
+                    <Run Text=" |" />
+                    <Run Text="{x:Static desktop:App.Title}" />
+                    <Run Text=" |" />
+                    <Run Text="{Binding Source={x:Static desktop:App.Version}, StringFormat=' v{0}'}" />
+                </TextBlock>
+            </Grid>
+        </Grid>
     </Grid>
 </uiw:AppWindow>
